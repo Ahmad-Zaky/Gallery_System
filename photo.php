@@ -13,7 +13,6 @@
     
     // creating the submitted comment
     create_comment();
-
 ?>
 
 
