@@ -4,7 +4,6 @@
 <?php 
 if(!empty($_GET['user_id']) && isset($_GET['user_id'])){
     
-    
     $id = $_GET['user_id'];
     
     $user = User::find_byID($id);

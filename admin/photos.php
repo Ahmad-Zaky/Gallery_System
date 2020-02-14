@@ -36,10 +36,11 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
                                         <th>Photo</th>
+                                        <th>ID</th>
                                         <th>Name</th>
                                         <th>Title</th>
+                                        <th>Comments</th>
                                         <th>Size</th>
                                     </tr>
                                 </thead>
@@ -59,6 +60,9 @@
         $title = $photo -> photo_title;
         $size = $photo -> format_bytes($photo -> photo_size);
         
+        // get the comments related to this photo
+        $comments = Comment::find_comm_by_photoID($id);
+        
 
         // check image file if exists
         if(file_exists($img_path) || !file_exists($img_path)) :
@@ -68,22 +72,30 @@
                                     <tr>
 
                                     <td>
-                                        <img class="admin-photo-thumbnail" src="<? echo $img_path;?>" alt='Gallery image'>
+                                        <a href="../photo.php?id=<?echo $id; ?>">
+                                            <img class="admin-photo-thumbnail" src="<? echo $img_path;?>" alt='Gallery image'>
+                                        </a>
                                         
                                         <div class="pictures-links">
                                             <a href="delete_photo.php?photo_id=<? echo $id;?>">Delete</a>
                                             <a href="edit_photo.php?photo_id=<? echo $id; ?>">Edit</a>
-                                            <a href="#">View</a>
+                                            <a href="../photo.php?id=<?echo $id; ?>">View</a>
                                         </div>
                                     </td>
                                     <td> <? echo $id; ?> </td>
                                     <td> <? echo $name; ?> </td>
                                     <td> <? echo $title; ?> </td>
+                                    <td> <? echo count($comments); ?>
+                                    
+                                    <a href="comments_photo.php?id=<?echo $id; ?>">Comments</a> 
+                                    
+                                    </td>
                                     <td> <? echo $size; ?> </td>
 
                                     </tr>
 <?php 
-
+    else:
+        echo "<h3> Photo Not Found!</h3>";
     endif;
     endforeach;
 

@@ -4,8 +4,6 @@
 <?php 
 if(!empty($_GET['photo_id']) && isset($_GET['photo_id'])){
     
-    echo "get id";
-    
     $id = $_GET['photo_id'];
     
     $photo = Photo::find_byID($id);

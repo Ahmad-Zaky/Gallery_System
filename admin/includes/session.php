@@ -7,12 +7,14 @@
         private $signed_in = false;
         public $user_id;
         public $message;
+        public $views = 1;
         
         // --- Methods ---
         
         // constructor
         function __construct(){
             session_start();
+            $this -> views_counter();
             $this -> check_login();
             $this -> check_msg();
         }
@@ -71,6 +73,15 @@
             }else
                 $this -> message = "";
         }
+        
+        // check views by refreshing
+        public function views_counter(){
+            
+            if(isset($_SESSION['views']))
+                $this->views = $_SESSION['views']++;
+            else
+                $_SESSION['views'] = 1;
+        }
     }
     $session = new Session(); 
 
@@ -78,3 +89,13 @@
 
 
 <!-- List of features to add in future -->
+
+
+<!-- 
+
+    TODO List:
+    
+    1. Turn the properties to private and use set and get instead.
+
+
+-->

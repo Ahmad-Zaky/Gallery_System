@@ -72,5 +72,6 @@
     TODO List:
     ----------
     
-        1. try make generic create() function.
+        1. try make generic create() function using array and properties_exist()
+           and put it in db_object class.
 -->

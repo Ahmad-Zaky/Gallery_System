@@ -276,6 +276,9 @@ function update_photo(){
 }
 
 
+                    /* --- Comment Class functions --- */
+
+
 // creating a submitted comment
 function create_comment(){
     
@@ -293,6 +296,10 @@ function create_comment(){
                 redirect("photo.php?id=$photo->photo_id");
         }
     }
+}
+
+function delete_comment(){
+    
 }
 
 
