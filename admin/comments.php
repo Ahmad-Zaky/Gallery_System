@@ -27,8 +27,8 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            COMMENTS
-                            <small>Subheading</small>
+                            ADMIN
+                            <small>COMMENTS</small>
                         </h1>
                         <div class="col-md-12">
                             <table class="table table-hover">
@@ -122,3 +122,12 @@
 
 
 <!-- List of features to add in future -->
+
+
+<!-- 
+
+    TODO List:
+    
+        1. Add edit comment feature by creating the file with its functionality.
+
+-->

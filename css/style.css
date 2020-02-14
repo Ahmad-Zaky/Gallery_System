@@ -1,0 +1,4 @@
+.home-img {
+    width: 250px;
+    height: 150px !important; /* to inforce the css here over bootstrap css */
+}

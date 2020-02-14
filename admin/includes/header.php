@@ -1,4 +1,4 @@
-<?php include("init.php")?>
+<?php require_once("init.php")?>
 <?php ob_start(); ?>
 
 
@@ -43,6 +43,7 @@
     
     <!-- Pie Chart -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
 
 </head>
 

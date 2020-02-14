@@ -5,7 +5,7 @@
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             ADMIN
-                            <small>Subheading</small>
+                            <small>Dashboard</small>
                         </h1>
                       
                       
@@ -25,13 +25,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="#">
                                         <div class="panel-footer">
-                                          <span class="pull-left">View Details</span> 
-                                       <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span> 
+                                          <span class="pull-left"></span> 
+                                       <span class="pull-right"><i class="fa"></i></span> 
                                             <div class="clearfix"></div>
                                         </div>
-                                    </a>
                                 </div>
                             </div>
 
@@ -43,14 +41,14 @@
                                                 <i class="fa fa-photo fa-5x"></i>
                                             </div>
                                             <div class="col-xs-9 text-right">
-                                                <div class="huge">7</div>
+                                                <div class="huge"><? echo Photo::counter()?></div>
                                                 <div>Photos</div>
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="#">
+                                    <a href="photos.php">
                                         <div class="panel-footer">
-                                            <span class="pull-left">Total Photos in Gallery</span>
+                                            <span class="pull-left">View Details</span>
                                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                             <div class="clearfix"></div>
                                         </div>
@@ -67,17 +65,14 @@
                                                 <i class="fa fa-user fa-5x"></i>
                                             </div>
                                             <div class="col-xs-9 text-right">
-                                                <div class="huge">8
-
-                                                </div>
-
+                                                <div class="huge"><? echo User::counter() ?></div>
                                                 <div>Users</div>
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="#">
+                                    <a href="users.php">
                                         <div class="panel-footer">
-                                            <span class="pull-left">Total Users</span>
+                                            <span class="pull-left">View Details</span>
                                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                             <div class="clearfix"></div>
                                         </div>
@@ -93,14 +88,14 @@
                                                 <i class="fa fa-support fa-5x"></i>
                                             </div>
                                             <div class="col-xs-9 text-right">
-                                                <div class="huge">8</div>
+                                                <div class="huge"><? echo Comment::counter() ?></div>
                                                 <div>Comments</div>
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="#">
+                                    <a href="comments.php">
                                         <div class="panel-footer">
-                                            <span class="pull-left">Total Comments</span>
+                                            <span class="pull-left">View Details</span>
                                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                             <div class="clearfix"></div>
                                         </div>
@@ -113,11 +108,30 @@
                         <!--First Row-->
                       
                         <!-- Pie Chart -->
-                        <div class="row">
-                            <div id="piechart" style="width: 900px; height: 500px;"></div>
-                        </div>
+                        <!--Table and divs that hold the pie charts-->
+                            <div class="row">
+                                <table class="columns">
+                                    <tr>
+                                        <td>
+                                            <div  id="piechart_Photos" style="border: 1px "></div>
+                                        </td>
+                                        <td>
+                                            <div  id="piechart_Users" style="border: 1px "></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div  id="piechart_Comments" style="border: 1px "></div>
+                                        </td>
+                                        <td>
+                                            <div  id="piechart_Categories" style="border: 1px "></div>
+                                        </td>
+                                    </tr>
+                                </table>      
+                            </div>
+                            
                         <!-- /.Pie Chart -->
-                      
+                        
                       
                         
                     </div>
@@ -126,6 +140,26 @@
 
             </div>
             <!-- /.container-fluid -->
+
+   
+   
+   
+<!-- List of features to add in future -->
+
+<!--
+  
+    ---------- 
+    TODO List:
+    ----------
+    
+    1. Add More than one Pie chart one for each class.
+    2. try to position each div in the page so each row contains 2 charts max.
+    3. add the approved and unapproved feature to photos and so on for other classes.
+    
+    
+  
+-->   
+   
 <!-- 
     
      

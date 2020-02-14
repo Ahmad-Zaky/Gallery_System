@@ -70,7 +70,7 @@
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             ADMIN
-                            <small>Subheading</small>
+                            <small>EDIT PHOTO</small>
                         </h1>
                         <form action="" enctype="multipart/form-data" method="post">
                             <div class="col-md-8">

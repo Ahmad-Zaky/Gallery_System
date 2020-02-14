@@ -216,8 +216,11 @@ function create_photo(){
         // create photo object
         $photo = new Photo();
         $photo -> photo_title = $_POST['title'];
+        $photo -> photo_caption = $_POST['caption'];
         $photo -> photo_description = $_POST['description'];
         $photo -> set_file($_FILES['file_upload']);
+        $photo -> photo_alternate_text = $_POST['alternate_text'];
+        
         // try to save the object in DB
         if($photo -> save()){
             if($photo -> upload_file()){
@@ -298,10 +301,6 @@ function create_comment(){
     }
 }
 
-function delete_comment(){
-    
-}
-
 
 ?>
 
@@ -320,4 +319,35 @@ function delete_comment(){
     1. When I change nothing and click upload it will update successfully but
        if I hit the botton again and also without changing anything then it will
        output the msg: Nothing changed to UPDATE. why NOT from the first time?
+-->
+        
+        
+<!-- 
+        
+                            *---- Deprecated Code ---*
+        
+        
+        
+        
+        
+        // Check if the file is already exist
+        if(!$photo -> upload_file()){ // to set the error array with any upload errors
+        
+            // now get the photo errors array and loop through to find this error 
+            $errors = $photo -> errors;
+
+            $file_exist = 0;
+            $file_exist_err = "";
+    //        $exist_err_msg = "The file {$photo->photo_name} already exist";
+            foreach($errors as $error){
+                if($error == "The file {$photo->photo_name} already exist"){
+                    $file_exist = 1;
+                    $file_exist_err = "The file {$photo->photo_name} already exist";
+                    $photo->photo_name = "";
+                }
+
+            }
+        }
+        
+        
 -->

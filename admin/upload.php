@@ -15,7 +15,6 @@
         $message = $_GET['msg'];
         $message .= $photos_lnk; 
     }
-
 ?>
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -43,8 +42,8 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            UPLOAD
-                            <small>Subheading</small>
+                            ADMIN
+                            <small>UPLOAD</small>
                         </h1>
                         <div class="col-md-6 col-md-offset-3">
                             <?php echo "<h3> $message </h3>"; ?>
@@ -64,9 +63,10 @@
                                 <div class="form-group">
 
                                     <label for="description">Photo Description</label>
-                                    <input type="text" name="description" class="form-control">
+                                    <textarea name="description" id="editor" cols="30" rows="10" class="form-control">
+                                    </textarea>
                                 </div>
-
+                                
                                 <div class="form-group">
 
                                     <label for="description">Photo Upload</label>
@@ -77,7 +77,6 @@
                                     <label for="title">Alternate Text</label>
                                     <input type="text" name="alternate_text" class="form-control">
                                 </div>
-                                
                                 <input class="btn btn-primary pull-right" type="submit" name="submit">
 
                             </form>

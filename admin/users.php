@@ -23,11 +23,12 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Users
-                            <a class="btn btn-primary" href="add_user.php">Add User</a>
+                            ADMIN
+                            <small>USERS</small>
                         </h1>
                         
-                                                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <a class="btn btn-primary" href="add_user.php">Add User</a>
                             <table class="table table-hover">
                                 <thead>
                                     <tr>

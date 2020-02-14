@@ -29,8 +29,8 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            POHOTOS
-                            <small>Subheading</small>
+                            ADMIN
+                            <small>PHOTOS</small>
                         </h1>
                         <div class="col-md-12">
                             <table class="table table-hover">

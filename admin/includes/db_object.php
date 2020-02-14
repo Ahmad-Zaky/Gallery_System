@@ -103,22 +103,7 @@
             $id = static::$db_table_fields[0];
             return !empty($this->$id) ? $this->update() : $this->create();
         }
-        
-            
-    // Ques. #1 is the checkings here only for create or may they can also be used for update
-    // Ques. #2 is these if checks down right or should they be nested lik if else statements
-        
-        public function upload_file(){
-            
-            $id = static::$db_table_fields[0];
-            
-            // check first if the file is uploaded properly
-            if($this->check_uploaded_file()){
-                unset($this->tmp_path);
-                return true;
-            }
-            return false;
-        }
+    
         
         
         // create an object 
@@ -232,12 +217,67 @@
             return $obj_arr;
         }
         
+        
         // photo path and place holder path
         public function photo_path(){
             return !empty($this->photo_name) ? $this -> upload_dir . DS . $this -> photo_name : $this->upload_dir . DS . $this->placeholder_photo;
         }
         
         
+        // The function will get $_FILES['upload_file'] superglobal variable as an argument
+        public function set_file($file){
+            
+            if(empty($file) || !$file || !is_array($file)){
+            
+                $this -> errors[] = "Sorry!, No file uploaded";
+            
+            }elseif($file['error'] != 0){
+                
+                // make exception for UPLOAD_ERR_NO_FILE error
+                if(UPLOAD_ERR_NO_FILE != $file['error']){
+                    
+                    $this -> file_status = 0;
+                    $this -> errors[] = $this -> upload_errors[$file['error']];
+                    return $this -> file_status;
+                }
+                return $this -> file_status; // byDefault = -1
+            
+            }else{
+                
+                // base properties for each file set
+                $this -> file_status = 1; // should we return file status better than 
+                $this -> photo_name = basename($file['name']);
+                $this -> tmp_path = $file['tmp_name'];
+                
+                // extra properties for each file set if exist
+                $class_name = get_class($this);
+                if(property_exists($class_name, 'photo_type'))
+                   $this -> photo_type = $file['type'];
+                   
+                if(property_exists($class_name, 'photo_size'))
+                    $this -> photo_size = $file['size'];
+                
+                return $this -> file_status;
+            }
+        }
+        
+        // Ques. #1 is the checkings here only for create or may they can also be used for update
+        // Ques. #2 is these if checks down right or should they be nested lik if else statements
+        
+        public function upload_file(){
+            
+            $id = static::$db_table_fields[0];
+            
+            // check first if the file is uploaded properly
+            if($this->check_uploaded_file()){
+                unset($this->tmp_path);
+                return true;
+            }
+            
+            // if could not upload then we reset photo name
+            $this -> photo_name = "";
+            return false;
+        }
     
         // check if the file is uploaded properly
         protected function check_uploaded_file(){
@@ -279,41 +319,21 @@
             }
         }
         
-        // The function will get $_FILES['upload_file'] superglobal variable as an argument
-        public function set_file($file){
+        // Count table rows
+        public static function counter(){
             
-            if(empty($file) || !$file || !is_array($file)){
+            global $db;
             
-                $this -> errors[] = "Sorry!, No file uploaded";
+            $query = "SELECT COUNT(*) FROM " . static::$db_table;
             
-            }elseif($file['error'] != 0){
-                
-                // make exception for UPLOAD_ERR_NO_FILE error
-                if(UPLOAD_ERR_NO_FILE != $file['error']){
-                    
-                    $this -> file_status = 0;
-                    $this -> errors[] = $this -> upload_errors[$file['error']];
-                    return false;
-                }
-                return $this -> file_status; // byDefault = -1
-                return false;
+            $result = $db->query($query);
             
-            }else{
-                
-                $this -> file_status = 1;
-                $this -> photo_name = basename($file['name']);
-                $this -> tmp_path = $file['tmp_name'];
-
-                $class_name = get_class($this);
-                if(property_exists($class_name, 'photo_type'))
-                   $this -> photo_type = $file['type'];
-                   
-                if(property_exists($class_name, 'photo_size'))
-                    $this -> photo_size = $file['size'];
-                
-                return true;
-            }
+            $row = $result -> fetch_array(MYSQLI_NUM);
+            
+            return !empty($row) ? $row[0] : false; 
+            
         }
+        
         
         // function to format the file size in more readable way with units
         public function format_bytes($bytes, $precision = 2){
