@@ -222,16 +222,17 @@ function create_photo(){
         $photo -> photo_alternate_text = $_POST['alternate_text'];
         
         // try to save the object in DB
+        if(!$photo -> upload_file())
+            $photo -> unset_file();
+            
+        
         if($photo -> save()){
-            if($photo -> upload_file()){
-                
-                $message = "Photo Uploaded successfully!";
-                redirect("upload.php?msg=$message");
-            }else{
-                
-                $message = join("<br>", $photo -> errors);
-                redirect("upload.php?msg=$message");
-            }
+            $message = "Photo Uploaded successfully!";
+            
+            // in case of any uploading error 
+            if($photo -> errors)
+                $message .= "<br>" . join("<br>", $photo -> errors);
+            redirect("upload.php?msg=$message");
         }
         else{
             

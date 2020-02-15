@@ -244,8 +244,9 @@
             
             }else{
                 
+                $this -> file_status = 1; 
+                
                 // base properties for each file set
-                $this -> file_status = 1; // should we return file status better than 
                 $this -> photo_name = basename($file['name']);
                 $this -> tmp_path = $file['tmp_name'];
                 
@@ -260,6 +261,26 @@
                 return $this -> file_status;
             }
         }
+        
+        // in case we wanna unset the file info because for example the file already exist
+        public function unset_file(){
+            $this -> file_status = 0;  
+            
+            // base properties for each file set
+            $this -> photo_name = "";
+            $this -> tmp_path = "";
+
+            // extra properties for each file set if exist
+            $class_name = get_class($this);
+            if(property_exists($class_name, 'photo_type'))
+               $this -> photo_type = "";
+
+            if(property_exists($class_name, 'photo_size'))
+                $this -> photo_size = "";
+
+            return $this -> file_status;
+        }
+            
         
         // Ques. #1 is the checkings here only for create or may they can also be used for update
         // Ques. #2 is these if checks down right or should they be nested lik if else statements
