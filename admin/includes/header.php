@@ -1,5 +1,11 @@
+<!-- 
+    * ob_start() should be always at the top otherwise we will get a problem like this
+
+        - “Warning: Cannot modify header information - headers already sent by” error
+-->
+
+<?php ob_start(); ?> 
 <?php require_once("init.php")?>
-<?php ob_start(); ?>
 
 
 <!DOCTYPE html>
@@ -13,7 +19,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Bootstrap Admin Template</title>
+    <title>Gallery System</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">

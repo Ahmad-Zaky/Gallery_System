@@ -2,3 +2,20 @@
     width: 250px;
     height: 150px !important; /* to inforce the css here over bootstrap css */
 }
+
+
+                        /* ----- Home page pagination ----- */
+
+.pager .active a:link,
+.pager .active a:visited {
+    background-color: #444; 
+    color: #fff;
+    
+    
+}
+
+.pager .active a:hover,
+.pager .active a:active {
+    background-color: #444;
+    color: #fff;
+}

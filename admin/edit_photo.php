@@ -84,7 +84,9 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <a href="#" class="thumbnail"><img src="<? echo $photo -> photo_path(); ?>" alt="Gallery Image"></a>
+                                    <a href="../photo.php?id=<? echo $photo->photo_id ?>" class="thumbnail">
+                                    <img src="<? echo $photo -> photo_path(); ?>" alt="Gallery Image">
+                                    </a>
                                     
                                     <input type="file" name="file_upload" >
                                 </div>

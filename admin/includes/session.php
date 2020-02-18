@@ -83,6 +83,7 @@
                 $_SESSION['views'] = 1;
         }
     }
+
     $session = new Session(); 
 
 ?>

@@ -13,10 +13,10 @@
         protected $photo_title = "";
         protected $photo_caption = "";
         protected $photo_description = "";
-        protected $photo_name = "";
         protected $photo_alternate_text = "";
+        
         protected $photo_type = "";
-        protected $photo_size = "";
+        protected $photo_size = 0;
         
         /* ----- METHODS ----- */
         
@@ -44,7 +44,40 @@
             else
                 $this->errors[] = "Failed to get $property!";
         }
+        
+                            /* ----- Page photos ----- */
+
+        // get the page photos from DB
+        public static function get_page_photos($paginator){
+
+            $query = "SELECT * FROM photos ";
+            $query .= "LIMIT {$paginator->IPP} ";
+            $query .= "OFFSET {$paginator->offset()}";
+
+            return parent::makeQuery($query);
+        }
+
     }
 ?>
 
-<!-- List of features to add in future -->
+                    <!-- List of features to add in future -->
+
+
+<!-- 
+
+    ----------
+    TODO List:
+    ----------
+
+    1.
+-->
+
+                            <!-- Deprecated code -->
+                            
+<!-- 
+
+ 
+  
+   
+    
+ -->

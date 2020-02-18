@@ -1,4 +1,4 @@
-<?php include("includes/header.php"); ?>
+<?php require_once("includes/header.php"); ?>
 <?php if(!$session->is_signedIn()) redirect("login.php"); ?>
 
 
@@ -121,7 +121,7 @@
                                 </div> 
                                 
                                 <div class="form-group pull-left">
-                                        <a  href="delete_user.php?user_id=<?php echo $user->user_id; ?>" class="btn btn-danger">Delete</a>   
+                                        <a  href="delete_user.php?user_id=<? echo $user->user_id;?>" class="btn btn-danger">Delete</a>   
                                 </div>
 
 

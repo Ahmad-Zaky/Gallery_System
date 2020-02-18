@@ -123,21 +123,28 @@ function create_user(){
         if($password === $confirm_password){
 
             $user -> password = trim($_POST['password']);
-
-            // check if created successfully
+            
+            // unset the file infos if the file is not uploaded properly 
+            // for example the file is already exist
+            if(!$user -> upload_file())
+                $user -> unset_file();
+                
+            // CREATING THE USER
             if($user -> save()){
                 
-                if($user -> upload_file())
-                    $message = "User Successfully created!";
-                else
-                    $message = "Failed to create a new User!";
+                $message = "User Successfully created!";
+                
+                // in case of any uploading error 
+                if($user -> errors)
+                    $message .= "<br>" . join("<br>", $user -> errors);
 
                 redirect("add_user.php?msg=$message");
             }
             else{
 
-                $message = "failed to upload the photo!";
-                $message .= join("<br>", $user -> errors);
+                $message = "Failed to create a new User!";
+                if($user->errors)
+                    $message .= "<br>" . join("<br>", $user->errors);
 
                 redirect("add_user.php?msg=$message");
             }
@@ -170,27 +177,35 @@ function update_user(){
             if(!empty($_POST['new_password']))
                 $user -> password = trim($_POST['new_password']);
             
+            // unset the file infos if the file is not uploaded properly 
+            // for example the file is already exist
+            if(!$user -> upload_file())
+                $user -> unset_file();
+            
+            // UPDATING THE USER
             if($user -> save()){
-                if($user -> upload_file())
-                    $message = "Successfully updated!";
-                else
-                    $message = "Failed to upload the photo!";
+                    
+                $message = "Successfully updated!";
+                
+                // in case of any uploading error 
+                if($user -> errors)
+                    $message .= "<br>" . join("<br>", $user -> errors);
             }
             else{
                 
                 // make a clone obj using find_byID() function
                 $user_clone = User::find_byID($user->user_id); 
-                $user_clone->set_file($_FILES['file_upload']);  // just to make fair comparison
-                                                                // should be improved
+                
 
                 // check if changes happened
-                if($user_clone == $user)
+                if($user->compare_properties($user_clone))
                     $message = "Nothing changed to make UPDATE! ";
                 else
                     $message = "Failed to Update! ";
                 
-                // to show file upload errors 
-                $message .= join("<br>", $user->errors);
+                // to show file upload errors
+                if($user->errors)
+                    $message .= "<br>" . join("<br>", $user->errors);
             }
             
         }else{
@@ -221,12 +236,15 @@ function create_photo(){
         $photo -> set_file($_FILES['file_upload']);
         $photo -> photo_alternate_text = $_POST['alternate_text'];
         
-        // try to save the object in DB
+        // unset the file infos if the file is not uploaded properly 
+        // for example the file is already exist
         if(!$photo -> upload_file())
             $photo -> unset_file();
             
         
+        // UPLOADING THE PHOTO
         if($photo -> save()){
+            
             $message = "Photo Uploaded successfully!";
             
             // in case of any uploading error 
@@ -237,6 +255,8 @@ function create_photo(){
         else{
             
             $message = "Failed to Upload the Photo!";
+            if(!empty($photo->errors))
+                $message .= "<br>" . join("<br>", $photo->errors);
             redirect("upload.php?msg=$message");
         }
     }
@@ -254,27 +274,33 @@ function update_photo(){
         $photo -> photo_alternate_text = $_POST['alternate_text'];
         $photo -> photo_description = $_POST['description'];
         $photo -> set_file($_FILES['file_upload']);
-
+        
+        // unset the file infos if the file is not uploaded properly 
+        // for example the file is already exist
+        if(!$photo -> upload_file())
+            $photo -> unset_file();
+        
+        // UPDATING THE PHOTO
         if($photo -> save()){
-            if($photo -> upload_file())
-                $message = "Successfully updated!";
-            else
-                $message = "Failed to upload!";
+            
+            $message = "Successfully updated!";
+            
+            // in case of any uploading error 
+            if($photo -> errors)
+                $message .= "<br>" . join("<br>", $photo -> errors);
         }
         else{
             
             $photo_clone = Photo::find_byID($photo->photo_id); 
-            $photo_clone->set_file($_FILES['file_upload']); // just to make fair comparison
-                                                            // I think it should be improved
             
             // check if changes happened
-            if($photo_clone == $photo)
+            if($photo->compare_properties($photo_clone))
                 $message = "Nothing changed to make UPDATE!";
             else
                 $message = "Failed to update!";
             
-            $message .= join("<br>", $photo -> errors);
-
+            if(!empty($photo->errors))
+                $message .= "<br>" . join("<br>", $photo->errors);
         }
     }   
 }
@@ -303,6 +329,9 @@ function create_comment(){
 }
 
 
+
+
+
 ?>
 
 
@@ -326,6 +355,19 @@ function create_comment(){
 <!-- 
         
                             *---- Deprecated Code ---*
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        // Line : 301 , update_photo() function
+        $message .= "<br>" . join("<br>", $photo -> errors); // Ques: do we need this line ?
         
         
         

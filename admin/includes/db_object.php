@@ -242,9 +242,15 @@
                 }
                 return $this -> file_status; // byDefault = -1
             
+            // Update Case: Check if the new photo name is the same our photo name
+            }elseif($this -> photo_name == basename($file['name'])){  
+                
+                return $this -> file_status;
             }else{
                 
                 $this -> file_status = 1; 
+                
+                
                 
                 // base properties for each file set
                 $this -> photo_name = basename($file['name']);
@@ -264,7 +270,6 @@
         
         // in case we wanna unset the file info because for example the file already exist
         public function unset_file(){
-            $this -> file_status = 0;  
             
             // base properties for each file set
             $this -> photo_name = "";
@@ -276,7 +281,7 @@
                $this -> photo_type = "";
 
             if(property_exists($class_name, 'photo_size'))
-                $this -> photo_size = "";
+                $this -> photo_size = 0;
 
             return $this -> file_status;
         }
@@ -355,6 +360,17 @@
             
         }
         
+        public function compare_properties($obj){
+            
+            $properties = array();
+            
+            foreach(static::$db_table_fields as $table_field){
+                if(property_exists($this, $table_field))
+                    if($this->$table_field != $obj->$table_field)
+                        return false;
+            }
+            return true;
+        }
         
         // function to format the file size in more readable way with units
         public function format_bytes($bytes, $precision = 2){

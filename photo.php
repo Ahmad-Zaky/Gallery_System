@@ -28,7 +28,7 @@
         <div class="row">
 
             <!-- Blog Post Content Column -->
-            <div class="col-lg-8">
+            <div class="col-lg-12">
 
                 <!-- Blog Post -->
                 
@@ -110,7 +110,7 @@
                 
 
             </div>
-                 <?php include("includes/sidebar.php"); ?>
+                 <?php //include("includes/sidebar.php"); ?>
         </div>
         <!-- /.row -->
 

@@ -31,3 +31,15 @@
   
  
 <!-- List of features to add in future -->
+
+
+<!-- 
+
+    ----------
+    TODO List:
+    ----------
+        
+        1. add the pie Chart functionality.
+
+
+-->
