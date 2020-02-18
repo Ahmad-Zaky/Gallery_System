@@ -95,3 +95,16 @@
   
  
 <!-- List of features to add in future -->
+
+
+
+
+<!-- 
+
+    ----------
+    TODO List:
+    ----------
+
+
+        1. If you want to add drag drop upload functionality to add mulitple photos at once look up here "212. Installing a Multiple Upload and Drop JS File Plugin Part #3 - COMPLETE"
+-->

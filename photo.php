@@ -1,5 +1,4 @@
 <?php require_once("admin/includes/init.php")?>
-<?php ob_start(); ?>
 
 
 
@@ -135,6 +134,6 @@
     6. Add also an Edit photo link in the nav bar for the admin user also.
     7. Add author to photos and make user role for that also.
     8. put date for photos and comments uploads.
-    
+    9. Add edit comment for users online.
      
 -->

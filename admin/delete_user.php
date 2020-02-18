@@ -10,6 +10,7 @@ if(!empty($_GET['user_id']) && isset($_GET['user_id'])){
     if($user){
         
         $user->delete_with_file();
+        $session->message("User $user->username has been deleted");
         redirect("users.php");
     }
     else

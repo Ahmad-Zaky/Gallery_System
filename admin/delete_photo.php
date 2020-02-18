@@ -10,6 +10,7 @@ if(!empty($_GET['photo_id']) && isset($_GET['photo_id'])){
     if($photo){
         
         $photo->delete_with_file();
+        $session->message("Photo $photo->photo_title has been deleted");
         redirect("photos.php");
     }
     else

@@ -51,9 +51,8 @@
         
         // escaping sql strings
         public function escape_string($string){
-            $escaped_str = $this->connection->real_escape_string($string);
             
-            return $escaped_str;
+            return $this->connection->real_escape_string($string);
         }
         
         

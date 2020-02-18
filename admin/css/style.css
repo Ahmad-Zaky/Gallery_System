@@ -5,6 +5,50 @@
     border-radius: 5px;
 }
 
+                        /* ------ login.php ------ */
+
+#login-id label {
+    color: white;
+}
+
+
+
+                        /* ------ edit-photo.php ------*/
+
+
+
+
+
+/* ----- Photo Gallery JS in edit Photo page styles ----- */
+
+
+.modal-dialog {
+    width: 90% !important;
+}
+
+.modal-body {
+    overflow: auto;
+    height: 500px !important;
+    min-height: 300px !important;
+}
+
+.modal_thumbnails {
+
+    width: 150px;
+    height: 100px !important;
+}
+
+#set_user_image {
+
+    margin:10px;
+}
+
+
+#modal_sidebar {
+
+    position: fixed !important;
+
+}
 
 /* ----- Sidebar in edit Photo page styles ----- */
 
@@ -52,3 +96,4 @@ background-color: #ddd;
 padding: 10px;
 
 }
+

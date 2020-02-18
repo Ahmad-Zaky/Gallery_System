@@ -32,6 +32,9 @@
                             ADMIN
                             <small>PHOTOS</small>
                         </h1>
+                        <p class="bg-success">
+                            <? echo $session->message(); ?>
+                        </p>
                         <div class="col-md-12">
                             <table class="table table-hover">
                                 <thead>
@@ -77,7 +80,7 @@
                                         </a>
                                         
                                         <div class="pictures-links">
-                                            <a href="delete_photo.php?photo_id=<? echo $id;?>">Delete</a>
+                                            <a class="delete-link" href="delete_photo.php?photo_id=<? echo $id;?>">Delete</a>
                                             <a href="edit_photo.php?photo_id=<? echo $id; ?>">Edit</a>
                                             <a href="../photo.php?id=<?echo $id; ?>">View</a>
                                         </div>
@@ -142,3 +145,14 @@ if(!empty($_GET['photo_id']) && isset($_GET['photo_id'])){
 ?>
 
 <!-- List of features to add in future -->
+
+
+<!-- 
+
+    ----------
+    TODO List:
+    ----------
+    
+        1. Add a feature to show only the photos related to the login admin user only and add role for the users to do that and add the extra field in db to help us doing that and add a function in the user class to get the photos related to that admin user and make sure you add the new fields names in the class specially db_table_fields.
+
+-->

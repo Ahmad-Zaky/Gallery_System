@@ -93,10 +93,14 @@
 
 
 <!-- 
-
+    
+    ----------
     TODO List:
+    ----------
     
     1. Turn the properties to private and use set and get instead.
+    2. check again this feature in video "205. Creating Session Methods for                Notifications in the Edit User Page Part # 1"
+
 
 
 -->

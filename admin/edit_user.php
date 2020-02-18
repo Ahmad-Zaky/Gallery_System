@@ -67,10 +67,10 @@
                         <form action="" enctype="multipart/form-data" method="post">
                             
                             <!-- FOR THE IMAGE -->
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 
                                 <div class="form-group">
-                                    <a href="#" class="thumbnail"><img src="<? echo $user -> photo_path(); ?>" alt="Gallery Image"></a>
+                                        <img class="thumbnail" src="<? echo $user -> photo_path(); ?>" alt="Gallery Image">
                                     
                                     <input type="file" name="file_upload" >
                                 </div>
@@ -121,7 +121,7 @@
                                 </div> 
                                 
                                 <div class="form-group pull-left">
-                                        <a  href="delete_user.php?user_id=<? echo $user->user_id;?>" class="btn btn-danger">Delete</a>   
+                                        <a href="delete_user.php?user_id=<? echo $user->user_id;?>" class="delete-link btn btn-danger">Delete</a>   
                                 </div>
 
 
@@ -149,3 +149,5 @@
 
 
 <!-- List of features to add in future -->
+
+

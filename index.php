@@ -111,6 +111,7 @@
     2. Try to add user tracking instead of views by refresh.
     3. We should prevent admin or user from adding photo without the photo it self.
     4. make a limit for the page number look up Google MyPagina class.
+    5. Add login and profile and hide admin and add edit photo and hide it from not admin usr.
     
 -->
                    

@@ -30,6 +30,11 @@
                             ADMIN
                             <small>COMMENTS</small>
                         </h1>
+                        
+                        <p class="bg-success">
+                            <? echo $session->message(); ?>
+                        </p>
+                        
                         <div class="col-md-12">
                             <table class="table table-hover">
                                 <thead>
@@ -75,8 +80,7 @@
                                     <td> <? echo $body; ?> 
                                     
                                         <div class="action-links">
-                                            <a href="delete_comment.php?comment_id=<? echo $id;?>">Delete</a>
-                                            <a href="edit_comment.php?comment_id=<? echo $id; ?>">Edit</a>
+                                            <a class="delete-link" href="delete_comment.php?comment_id=<? echo $id;?>">Delete</a>
                                             <a href="../photo.php?id=<? echo $photo_id; ?>" >View</a>
                                         </div>
                                     
@@ -129,5 +133,19 @@
     TODO List:
     
         1. Add edit comment feature by creating the file with its functionality.
+
+-->
+                            <!-- DEPRECATED CODE -->
+                                           
+<!--    
+
+
+    -> Line : 84
+    ------------
+    
+    <a href="edit_comment.php?comment_id=<? //echo $id; ?>">Edit</a>
+
+
+
 
 -->

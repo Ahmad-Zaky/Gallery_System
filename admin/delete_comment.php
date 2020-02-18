@@ -12,6 +12,7 @@ if(!empty($_GET['comment_id']) && isset($_GET['comment_id'])){
     if($comment){
         
         $comment->delete();
+        $session->message("Comment from $comment->comment_author has been deleted");        
         redirect("comments.php");
     }
     else

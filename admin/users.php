@@ -26,6 +26,9 @@
                             ADMIN
                             <small>USERS</small>
                         </h1>
+                        <p class="bg-success">
+                            <? echo $session->message(); ?>
+                        </p>
                         
                     <div class="col-md-12">
                         <a class="btn btn-primary" href="add_user.php">Add User</a>
@@ -63,10 +66,12 @@
                                     <td> <? echo $id; ?> </td>
 
                                     <td>
-                                        <img class="admin-photo-thumbnail" src="<? echo $img_path;?>" alt='Gallery image'>
+                                        <a href="edit_user.php?user_id=<? echo $id; ?>">
+                                            <img class="admin-photo-thumbnail" src="<? echo $img_path;?>" alt='Gallery image'>
+                                        </a>
                                         
                                         <div class="pictures-links">
-                                            <a href="delete_user.php?user_id=<? echo $id;?>">Delete</a>
+                                            <a class="delete-link"  href="delete_user.php?user_id=<? echo $id;?>">Delete</a>
                                             <a href="edit_user.php?user_id=<? echo $id; ?>">Edit</a>
                                             <a href="#">View</a>
                                         </div>

@@ -1,4 +1,5 @@
 <?php include("includes/header.php"); ?>
+<?php include("includes/photo_lib_modal.php"); ?>
 <?php if(!$session->is_signedIn()) redirect("login.php"); ?>
 
 
@@ -84,9 +85,8 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <a href="../photo.php?id=<? echo $photo->photo_id ?>" class="thumbnail">
-                                    <img src="<? echo $photo -> photo_path(); ?>" alt="Gallery Image">
-                                    </a>
+                                    <a href="" class="thumbnail" data-toggle="modal" data-target="#photo-modal">
+                                    <img src="<? echo $photo -> photo_path(); ?>" alt="Gallery Image"></a>
                                     
                                     <input type="file" name="file_upload" >
                                 </div>
@@ -114,7 +114,7 @@
                             <div class="col-md-4" >
                                 <div  class="photo-info-box">
                                     <div class="info-box-header">
-                                       <h4>Save <span id="toggle" class="glyphicon glyphicon-menu-up pull-right"></span></h4>
+                                       <h4>Save <span id="toggle" class="glyphicon-menu-up glyphicon pull-right"></span></h4>
                                     </div>
                                 <div class="inside">
                                   <div class="box-inner">
@@ -136,7 +136,7 @@
                                   </div>
                                   <div class="info-box-footer clearfix">
                                     <div class="info-box-delete pull-left">
-                                        <a  href="delete_photo.php?photo_id=<?php echo $photo->photo_id; ?>" class="btn btn-danger btn-lg ">Delete</a>   
+                                        <a href="delete_photo.php?photo_id=<?php echo $photo->photo_id; ?>" class="delete-link btn btn-danger btn-lg ">Delete</a>   
                                     </div>
                                     <div class="info-box-update pull-right ">
                                         <input type="submit" name="update" value="Update" class="btn btn-primary btn-lg ">
@@ -167,3 +167,19 @@
 
 
 <!-- List of features to add in future -->
+                                   
+                                   
+                                   <!-- DEPREACATED CODE -->
+                                   
+<!-- 
+
+
+    -> Line : 88
+
+        <a href="../photo.php?id=<? //echo $photo->photo_id ?>" class="thumbnail">
+        <img src="<? //echo $photo -> photo_path(); ?>" alt="Gallery Image">
+        </a>
+        
+        
+
+-->

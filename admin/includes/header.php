@@ -4,7 +4,6 @@
         - “Warning: Cannot modify header information - headers already sent by” error
 -->
 
-<?php ob_start(); ?> 
 <?php require_once("init.php")?>
 
 
