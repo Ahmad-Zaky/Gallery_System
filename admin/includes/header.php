@@ -1,9 +1,3 @@
-<!-- 
-    * ob_start() should be always at the top otherwise we will get a problem like this
-
-        - “Warning: Cannot modify header information - headers already sent by” error
--->
-
 <?php require_once("init.php")?>
 
 

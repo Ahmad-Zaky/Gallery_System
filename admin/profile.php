@@ -15,10 +15,10 @@
 
     $users_lnk = " <a href='users.php'>View Users</a>";
 
-    if(isset($_GET['user_id']) && !empty($_GET['user_id'])){
+    if(isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])){
 
         // fill the form from DB
-        $user = User::find_byID($_GET['user_id']);
+        $user = User::find_byID($_SESSION['user_id']);
         $username = $user->username;
         $first_name = $user->first_name;
         $second_name = $user->second_name;
@@ -74,7 +74,7 @@
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             ADMIN
-                            <small>EDIT USER</small>
+                            <small><? echo $username; ?></small>
                         </h1>
                         <form action="" enctype="multipart/form-data" method="post">
                             
@@ -82,7 +82,7 @@
                             <div class="col-md-3">
                                 
                                 <div class="form-group">
-                                        <img class="thumbnail user_photo-thumbnail" src="<? echo $user -> photo_path(); ?>" alt="Gallery Image">
+                                        <img class="thumbnail" src="<? echo $user -> photo_path(); ?>" alt="Gallery Image">
                                     
                                     <input type="file" name="file_upload" >
                                 </div>
@@ -161,14 +161,6 @@
                                         <input type="submit" name="update" value="Update" class="btn btn-primary">
                                 </div> 
                                 
-                                <div class="form-group pull-left">
-                                    <!-- Hide the loged in user delete link -->
-                                    <? if($user->user_id !== $_SESSION['user_id']): ?>
-                                        <a href="delete_user.php?user_id=<? echo $user->user_id;?>" class="delete-link btn btn-danger">Delete</a>
-                                    <? endif; ?>   
-                                </div>
-
-
                             </div>
                             
                             

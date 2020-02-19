@@ -68,26 +68,61 @@ function check_post_password($obj_password){
         return false;
 }
 
+// ------ set new user role function ------
+function set_user_role($user_id, $user_role){
+    
+    // find user by id
+    $user = User::find_byID($user_id);
+    if($user){
+        
+        // set the new user role
+        $user->user_role = $user_role;
+
+        // save the user new infos, save() is from the DB_object class
+        $user->save();
+    }
+}
+
+// ------ set new user role function ------
+function set_photo_status($photo_id, $photo_status){
+    
+    // find user by id
+    $photo = Photo::find_byID($photo_id);
+    if($photo){
+        
+        // set the new user role
+        $photo->photo_status = $photo_status;
+
+        // save the user new infos, save() is from the DB_object class
+        $photo->save();
+    }
+}
 
 // ---- Login Form function ---
 function login_form(){
     
-    global $session, $warning_msg;
+    global $session;
     
+    // check POST submitted data
     if(isset($_POST['submit'])){
-        $username = trim($_POST['username']);
+        $username = trim($_POST['username']); // using trim to remove and prefix white spaces 
         $password = trim($_POST['password']);
         
+        // check the user data with DB
         $user_found = User::verify_user($username, $password);
         
+        // user found
         if($user_found){
             $session->login($user_found);
             redirect("index.php");
-        }else{
+            
+        }else{ 
+
+            // if not found then we have two possibilities 1. fields are empty. 2. wrong usr or pwd 
             if(!empty($username) && !empty($password))
-                $Warning_msg = "Username or Password are not correct!, plz try again.";
+                $session->message("Username or Password are not correct!, plz try again.");
             else
-                $Warning_msg = "One of more fields are empty, plz fill the empty field.";
+                $session->message("One of more fields are empty, plz fill the empty field.");
         }
     }
 }
@@ -115,6 +150,9 @@ function create_user(){
         $user->username = trim($_POST['username']);
         $user->first_name = trim($_POST['first_name']);
         $user->second_name = trim($_POST['second_name']);
+        $user->user_email = trim($_POST['user_email']);
+        $user->user_register_date = date('Y-m-d H:i:s');
+        $user->user_role = trim($_POST['user_role']);
         $user->set_file($_FILES['file_upload']);
         
         // check the password and confirm password
@@ -168,6 +206,8 @@ function update_user(){
         $user -> username = trim($_POST['username']);
         $user -> first_name = trim($_POST['first_name']);
         $user -> second_name = trim($_POST['second_name']);
+        $user -> user_role = $_POST['user_role'];
+        $user -> user_email = $_POST['user_email'];
         $user -> set_file($_FILES['file_upload']);
 
         if(check_post_password($user->password)){
@@ -230,11 +270,14 @@ function create_photo(){
         
         // create photo object
         $photo = new Photo();
-        $photo -> photo_title = $_POST['title'];
-        $photo -> photo_caption = $_POST['caption'];
-        $photo -> photo_description = $_POST['description'];
+        $photo -> photo_title = trim($_POST['title']);
+        $photo -> photo_caption = trim($_POST['caption']);
+        $photo -> photo_description = trim($_POST['description']);
         $photo -> set_file($_FILES['file_upload']);
-        $photo -> photo_alternate_text = $_POST['alternate_text'];
+        $photo -> photo_alternate_text = trim($_POST['alternate_text']);
+        $photo -> photo_upload_date = date('Y-m-d H:i:s');
+        $photo -> photo_status = "draft";
+        $photo -> user_id = $_SESSION['user_id'];
         
         // unset the file infos if the file is not uploaded properly 
         // for example the file is already exist
@@ -314,14 +357,23 @@ function create_comment(){
     
     if(isset($_POST['submit'])){
         
+        // set all properties in an array 
+        $properties = array();
+        
         $photo = Photo::find_byID($_GET['id']);
         if($photo)
         {
-            $author = $_POST['author'];
-            $body = $_POST['body'];
+            // set values for comment properties 
+            $properties['photo_id'] = $photo->photo_id;
+            $properties['comment_author'] = trim($_POST['author']);
+            $properties['comment_body'] = trim($_POST['body']);
+            $properties['comment_date'] = date('Y-m-d H:i:s');
+            $properties['user_id'] = $_SESSION['user_id'];
             
-            $new_comment = Comment::create_obj($photo->photo_id, $author, $body);
+            // create comment object with the properties values
+            $new_comment = Comment::create_obj($properties);
             
+            // save the comment and redirect to the same photo page
             if($new_comment && $new_comment->save())
                 redirect("photo.php?id=$photo->photo_id");
         }

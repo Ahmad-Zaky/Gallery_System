@@ -5,11 +5,22 @@
     border-radius: 5px;
 }
 
+.user_photo-thumbnail {
+    width: 200px;
+    border-radius: 5px;
+}
+
                         /* ------ login.php ------ */
 
-#login-id label {
-    color: white;
+#login-form {
+    background-color: white;
+    border-radius: 5px;
 }
+
+#login-id label {
+    color: black;
+}
+
 
 
 

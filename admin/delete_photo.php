@@ -1,5 +1,6 @@
 <?php include("includes/header.php"); ?>
 <?php if(!$session->is_signedIn()) redirect("login.php"); ?>
+<?php if($_SESSION['user_role'] == "subscriber") redirect("../index.php");?>
 
 <?php 
 if(!empty($_GET['photo_id']) && isset($_GET['photo_id'])){

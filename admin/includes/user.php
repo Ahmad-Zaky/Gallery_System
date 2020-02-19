@@ -5,7 +5,7 @@
     // ------- Properties -------
         
         /* --- GENERIC NAMES --- */
-        protected static $db_table_fields = array("user_id", "username", "password", "first_name", "second_name", "photo_name");
+        protected static $db_table_fields = array("user_id", "username", "password", "first_name", "second_name", "photo_name", "user_email", "user_register_date", "user_role");
         protected static $db_table = "users";
 
 
@@ -16,11 +16,11 @@
         protected $password = "";
         protected $first_name = "";
         protected $second_name = "";
+        protected $user_email = "";
+        protected $user_register_date = "";
+        protected $user_role = "";
         
         
-                /* *** Generic name custom value *** */
-        
-        // related to user image (not saved in DB yet!)
         
         
         
@@ -127,8 +127,13 @@
         }
         
         
+        Line : 22
+        ---------
         
         
+                /* *** Generic name custom value *** */
+        
+        // related to user image (not saved in DB yet!)
         
         
         

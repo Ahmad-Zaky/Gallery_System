@@ -34,7 +34,7 @@
                 <? foreach( $photos as $photo) : 
                 
                     /* --- Filter Photos Without real photos ---*/
-                    if($photo->photo_name == "")
+                    if($photo->photo_name == "" || $photo->photo_status == "draft")
                         continue;
                 ?>
                 

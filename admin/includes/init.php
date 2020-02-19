@@ -1,4 +1,10 @@
 <?php 
+
+ 
+//    * ob_start() should be always at the top otherwise we will get a problem like this
+//        - “Warning: Cannot modify header information - headers already sent by” error
+
+
     ob_start();  
 
     require_once("functions.php");

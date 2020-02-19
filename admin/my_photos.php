@@ -31,7 +31,7 @@
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             ADMIN
-                            <small>PHOTOS</small>
+                            <small>MY PHOTOS</small>
                         </h1>
                         <p class="bg-success">
                             <? echo $session->message(); ?>
@@ -44,50 +44,25 @@
                                         <th>ID</th>
                                         <th>Name</th>
                                         <th>Title</th>
-                                        <th>Size</th>
                                         <th>Comments</th>
-                                        <th>Status</th>
-                                        <th>Publish</th>
-                                        <th>Draft</th>
+                                        <th>Size</th>
                                     </tr>
                                 </thead>
-
                                 
-<!-- Change photo status by $_GET[''] using <a> link tags -->
-<?php 
-    
-    // in case we clicked on admin link
-    if(isset($_GET['draft'])){
-        
-        $photo_id = $_GET['draft'];
-        set_photo_status($photo_id, "draft");
-    }
-        
-    // in case we clicked on subscriber link
-    if(isset($_GET['publish'])){
-        
-        $photo_id = $_GET['publish'];
-        set_photo_status($photo_id, "published");
-    }
-        
-                                
-?>
-   
 <!-- Get Photos infos from DB -->
 <?php 
 
-    $photos = Photo::find_all();
+    $photos = Photo::find_photos_by_userID($_SESSION['user_id']);
     
     foreach($photos as $photo) :
         
         // get object infos
-        $id       =          $photo -> photo_id;
-        $img_path =          $photo -> photo_path();
-        $ext      = pathinfo($img_path, PATHINFO_EXTENSION);
-        $name     = basename($photo -> photo_name, '.' . $ext);
-        $title    =          $photo -> photo_title;
-        $size     =          $photo -> format_bytes($photo -> photo_size);
-        $status   =          $photo -> photo_status;
+        $id = $photo -> photo_id;
+        $img_path = $photo -> photo_path();
+        $ext = pathinfo($img_path, PATHINFO_EXTENSION);
+        $name = basename($photo -> photo_name, '.' . $ext);
+        $title = $photo -> photo_title;
+        $size = $photo -> format_bytes($photo -> photo_size);
         
         // get the comments related to this photo
         $comments = Comment::find_comm_by_photoID($id);
@@ -97,13 +72,14 @@
         if(file_exists($img_path) || !file_exists($img_path)) :
 ?>
                                 <tbody>
+
                                     <tr>
 
                                     <td>
                                         <a href="../photo.php?id=<?echo $id; ?>">
                                             <img class="admin-photo-thumbnail" src="<? echo $img_path;?>" alt='Gallery image'>
                                         </a>
-
+                                        
                                         <div class="pictures-links">
                                             <a class="delete-link" href="delete_photo.php?photo_id=<? echo $id;?>">Delete</a>
                                             <a href="edit_photo.php?photo_id=<? echo $id; ?>">Edit</a>
@@ -113,15 +89,12 @@
                                     <td> <? echo $id; ?> </td>
                                     <td> <? echo $name; ?> </td>
                                     <td> <? echo $title; ?> </td>
-                                    <td> <? echo $size; ?> </td>
+                                    <td> <? echo count($comments); ?>
                                     
-                                    <td> <? echo count($comments); ?> 
                                     <a href="comments_photo.php?id=<?echo $id; ?>">Comments</a> 
+                                    
                                     </td>
-
-                                    <td> <? echo $status; ?> </td>
-                                    <td><a href="photos.php?draft=<? echo $id ?>">Draft</a></td>
-                                    <td><a href="photos.php?publish=<? echo $id ?>">Publish</a></td>
+                                    <td> <? echo $size; ?> </td>
 
                                     </tr>
 <?php 

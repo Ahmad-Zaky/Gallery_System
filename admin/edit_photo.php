@@ -1,6 +1,7 @@
 <?php include("includes/header.php"); ?>
 <?php include("includes/photo_lib_modal.php"); ?>
 <?php if(!$session->is_signedIn()) redirect("login.php"); ?>
+<?php if($_SESSION['user_role'] == "subscriber") redirect("../index.php");?>
 
 
 <?php 
@@ -11,6 +12,7 @@
     $caption = "";
     $alternate_text = "";
     $description = "";
+    $status = "";
     $message = "";
     $photos_lnk = " <a href='photos.php'>View Photos</a>";
     
@@ -24,6 +26,7 @@
             $caption = $photo -> photo_caption;
             $alternate_text = $photo -> photo_alternate_text;
             $description = $photo -> photo_description;
+            $status = $photo -> photo_status;
         }else
             $message = "Photo not found! " . $photos_lnk;
         
@@ -41,6 +44,7 @@
             $caption = $_POST['caption'];
             $alternate_text = $_POST['alternate_text'];
             $description = $_POST['description'];
+            $status = $_POST['status'];
         }
     }else
         redirect("photos.php");
@@ -107,7 +111,25 @@
                                     </textarea>
                                 </div>
 
-
+                                <div class="form-group">
+                                    <br><label for="status">Status</label><br>
+                                    <select name="status" id="">
+                                        
+                                    <!-- Arrange the options depend on the photo_status -->
+                                    <? if($photo_status == 'draft'):?>
+                                        
+                                        <option value='draft'>Draft</option>
+                                        <option value='published'>Published</option>
+                                        
+                                    <? else: ?>
+                                        
+                                        <option value='published'>Published</option>
+                                        <option value='draft'>Draft</option>
+                                        
+                                    <? endif; ?>
+                                    </select>
+                                </div>
+                                     
                             </div>
                             
                             <!-- SIDE BAR -->

@@ -50,6 +50,31 @@
             return array_key_exists($attr, $obj_properties);
         }
         
+        
+        // create a new object
+        public static function create_obj($properties){
+            
+            
+            if(isset($properties) && !empty($properties)){
+                
+                // create a new object
+                $called_class = get_called_class();
+                $new_obj = new $called_class;
+                
+                // loop in class properties
+                foreach($properties as $propertie => $value){
+                    
+                    // check each $property if exists
+                    if($new_obj->has_attribute($propertie)){
+                        $new_obj->$propertie = $value;
+                    }else
+                        return false;
+                }
+                return $new_obj;
+            }
+            return false;
+        }
+        
 
         // get class properties
         protected function properties(){
@@ -75,7 +100,6 @@
             }
             return $clean_properties;
         }
-        
         
                         /* ----- CRUD FUNCTIONS ----- */
         

@@ -5,13 +5,15 @@
         // --- Properties ---
         
         private $signed_in = false;
-        public $user_id;
-        public $message;
-        public $views = 1;
+        private $user_id;
+        private $username;
+        private $user_role;
+        private $message;
+        private $views = 1;
         
         // --- Methods ---
         
-        // constructor
+        // magic method constructor
         function __construct(){
             session_start();
             $this -> views_counter();
@@ -28,17 +30,28 @@
         public function login($user){
             
             $this -> user_id = $_SESSION['user_id'] = $user -> user_id;
+            $this -> username = $_SESSION['username'] = $user -> username;
+            $this -> user_role = $_SESSION['user_role'] = $user -> user_role;
+            
             $this -> signed_in = true;
         }
         
         // unset the session and object properties to log out
         public function logout(){
+            
             unset($_SESSION['user_id']);
             unset($this -> user_id);
+            
+            unset($_SESSION['username']);
+            unset($this -> username);
+            
+            unset($_SESSION['user_role']);
+            unset($this -> user_role);
+            
             $this -> signed_in = false;
         }
         
-        // check if session is setted for a user
+        // check if session is setted up for a user
         private function check_login(){
             
             if(isset($_SESSION['user_id'])){
@@ -52,7 +65,7 @@
             }
         }
         
-        // get a message 
+        // get a message and set a message if there is not 
         public function message($msg=""){
             
             if(!empty($msg)){
@@ -98,8 +111,8 @@
     TODO List:
     ----------
     
-    1. Turn the properties to private and use set and get instead.
-    2. check again this feature in video "205. Creating Session Methods for                Notifications in the Edit User Page Part # 1"
+    1. Turn the properties to private and use set and get instead or superglobal $_SESSSION[''] variables
+    2. check again this feature in video "205. Creating Session Methods for Notifications in the Edit User Page Part # 1"
 
 
 

@@ -5,7 +5,7 @@
         /* ----- PROPERTIES ----- */
         
         /* --- GENERIC NAMES --- */
-        protected static $db_table_fields = array("photo_id", "photo_title", "photo_caption", "photo_description", "photo_name", "photo_alternate_text", "photo_type", "photo_size");
+        protected static $db_table_fields = array("photo_id", "photo_title", "photo_caption", "photo_description", "photo_name", "photo_alternate_text", "photo_type", "photo_size", "photo_upload_date", "photo_status", "user_id");
         protected static $db_table = "photos";
 
         /* --- Class Table Properties --- */
@@ -14,6 +14,9 @@
         protected $photo_caption = "";
         protected $photo_description = "";
         protected $photo_alternate_text = "";
+        protected $photo_upload_date = "";
+        protected $photo_status = "";
+        protected $user_id = "";
         
         protected $photo_type = "";
         protected $photo_size = 0;
@@ -43,6 +46,20 @@
                 return $this->$property;
             else
                 $this->errors[] = "Failed to get $property!";
+        }
+        
+        
+        // find Photos by user ID
+        public static function find_photos_by_userID($user_id = 0){
+            
+            global $db;
+            
+            $qeury = "SELECT * FROM photos ";
+            $qeury .= "WHERE user_id = " . $db->escape_string($user_id);
+            $qeury .= " ORDER BY photo_id ";
+            
+            return self::makeQuery($qeury);
+            
         }
         
                             /* ----- Page photos ----- */

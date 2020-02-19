@@ -5,7 +5,7 @@
         /* ----- PROPERTIES ----- */
         
         /* --- GENERIC NAMES --- */
-        protected static $db_table_fields = array("comment_id", "photo_id", "comment_author", "comment_body");
+        protected static $db_table_fields = array("comment_id", "photo_id", "comment_author", "comment_body", "comment_date", "user_id");
         protected static $db_table = "comments";
         
         /* --- Class Table Properties --- */
@@ -13,6 +13,8 @@
         protected $photo_id = 0;
         protected $comment_author = "";
         protected $comment_body = "";
+        protected $comment_date = "";
+        protected $user_id = 0;
         
         
         /* ----- METHODS ----- */
@@ -35,20 +37,6 @@
                 $this->errors[] = "Failed to get $property!";
         }
         
-        // create a comment object
-        public static function create_obj($photo_id, $comment_author, $comment_body){
-            if(!empty($photo_id) && !empty($comment_author) && !empty($comment_body))
-            {
-                $comment = new Comment();
-                
-                $comment -> photo_id = (int)$photo_id;
-                $comment -> comment_author = $comment_author;
-                $comment -> comment_body = $comment_body;
-                
-                return $comment;
-            }else
-                return false;
-        }
         
         // find comments by photo ID
         public static function find_comm_by_photoID($photo_id = 0){
@@ -75,3 +63,25 @@
         1. try make generic create() function using array and properties_exist()
            and put it in db_object class.
 -->
+
+                               
+                                <!-- DEPRECATED CODE -->
+
+<!--
+       
+        Line : 60
+        ---------
+            
+            
+            if(!empty($photo_id) && !empty($comment_author) && !empty($comment_body) && !empty($comment_date) && !empty($user_id))
+            {
+                $comment = new Comment();
+                
+                $comment -> photo_id = (int)$photo_id;
+                $comment -> comment_author = $comment_author;
+                $comment -> comment_body = $comment_body;
+                
+                
+                return $comment;
+            }else
+                return false;-->

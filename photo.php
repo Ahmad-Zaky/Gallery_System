@@ -45,7 +45,7 @@
                 <hr>
 
                 <!-- Date/Time -->
-                <p><span class="glyphicon glyphicon-time"></span> Posted on August 24, 2013 at 9:00 PM</p>
+                <p><span class="glyphicon glyphicon-time"></span> Posted on </p>
 
                 <hr>
 
@@ -135,5 +135,6 @@
     7. Add author to photos and make user role for that also.
     8. put date for photos and comments uploads.
     9. Add edit comment for users online.
+    10. Change the date format to be like this 'August 24, 2013 at 9:00 PM'
      
 -->

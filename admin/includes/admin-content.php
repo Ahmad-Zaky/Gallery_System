@@ -20,7 +20,7 @@
                                                 <i class="fa fa-users fa-5x"></i>
                                             </div>
                                             <div class="col-xs-9 text-right">
-                                                <div class="huge"><? echo $session->views; ?></div>
+                                                <div class="huge"><? echo $_SESSION['views']; ?></div>
                                                 <div>New Views</div>
                                             </div>
                                         </div>

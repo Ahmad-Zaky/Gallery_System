@@ -1,5 +1,6 @@
 <?php include("includes/header.php"); ?>
 <?php if(!$session->is_signedIn()) redirect("login.php"); ?>
+<?php if($_SESSION['user_role'] == "subscriber") redirect("../index.php");?>
 
 
 <?php   
@@ -47,7 +48,7 @@
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             ADMIN
-                            <small>Subheading</small>
+                            <small>Add New User</small>
                         </h1>
                         <form action="" enctype="multipart/form-data" method="post">
                             <div class="col-md-6 col-md-offset-3">
@@ -71,6 +72,11 @@
                                    <label for="second_name">Second Name</label>
                                     <input type="text" name="second_name"  class="form-control">
                                 </div>
+                                  
+                                <div class="form-group">
+                                   <label for="second_name">E-mail</label>
+                                    <input type="text" name="user_email"  class="form-control">
+                                </div>
                                 
                                 <div class="form-group">
                                    <label for="password">Password</label>
@@ -86,10 +92,21 @@
                                     <label for="file_upload">User Photo</label>
                                     <input type="file" name="file_upload" >
                                 </div>
+                                    
+                                <div class="form-group">
+                                    <br><label for="user_role">User Role</label><br>
+                                    <select name="user_role" id="">
 
-                                    <div class="form-group">
-                                        <input type="submit" name="add_user" value="Add User" class="btn btn-primary pull-right">
-                                    </div>
+                                        <option value='subscriber'>Select role</option>
+                                        <option value='subscriber'>Subscriber</option>
+                                        <option value='admin'>Admin</option>
+
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="submit" name="add_user" value="Add User" class="btn btn-primary pull-right">
+                                </div>
                            
                             </div>
                             
