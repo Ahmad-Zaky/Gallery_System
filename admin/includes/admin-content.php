@@ -116,15 +116,15 @@
                                             <div  id="piechart_Photos" style="border: 1px "></div>
                                         </td>
                                         <td>
-                                            <div  id="piechart_Users" style="border: 1px "></div>
+                                            <div  id="piechart_UserPhotos" style="border: 1px "></div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <div  id="piechart_Comments" style="border: 1px "></div>
+                                            <div  id="piechart_Users" style="border: 1px "></div>
                                         </td>
                                         <td>
-                                            <div  id="piechart_Categories" style="border: 1px "></div>
+                                            <div  id="piechart_Comments" style="border: 1px "></div>
                                         </td>
                                     </tr>
                                 </table>      

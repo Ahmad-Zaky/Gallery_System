@@ -1,26 +1,12 @@
 <?php 
-// --- autoload to scan unincluded classes files ---
 
-// course way 
-// Hint: the course instructor did change it to the better way later on
-
-//function __autoload($class){
-//    
-//    $class = strtolower($class);
-//    $path = "includes/{$class}.php";
-//    
-//    if(file_exists($path))
-//        require_once($path);
-//    else
-//        die("FILE {$class}.php is not FOUND!");
-//}
+// function to load unincluded classes by finding them in includes directory
 
 // --- better way ---
-
 function classAutoLoad($class){
     
     $class = strtolower($class);
-    $path = "includes/{$class}.php";
+    $path = "includes/classes/{$class}.php";
     
     if(is_file($path) && !class_exists($class))
         require_once($path);
@@ -134,6 +120,76 @@ function set_comment_status($comment_id, $comment_status){
 // --- Registeration Form function ---
 function registeration(){
     
+    $check = true;
+    $message = array();
+    $properties = array();
+    
+    if(isset($_POST['submit'])){
+        
+        // get user infos
+        $properties['username'] = trim($_POST['username']);
+        $properties['first_name'] = trim($_POST['first_name']);
+        $properties['second_name'] = trim($_POST['second_name']);
+        $properties['user_register_date'] = date('Y-m-d H:i:s');
+        $properties['user_role'] = "subscriber";
+        
+         
+        // check email regular expression with this
+        // pattern " ^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$ "
+        $reg_expr = "/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/";
+        if(preg_match($reg_expr, trim($_POST['email'])))
+            $properties['user_email'] = trim($_POST['email']);
+        else{
+            $message = "Wrong Email!, plz write a right formatted email";
+            return;
+        }
+            
+        
+        
+        $password = trim($_POST['password']);
+        $confirm_password = trim($_POST['confirm_password']);
+        
+        // create a new user
+        $new_user = User::create_obj($properties);
+        
+        // check if this username is used before
+        $get_username = User::find_byUsername($properties['username']);
+        
+        // display msg if username is used before
+        if($get_username){
+            
+            $message[] = "<h4 class='text-center bg-danger'>username already exists, Plz try a new username.</h4>";
+            $check = false;
+        }
+        
+        // display msg if any field is empty
+        if(is_post_empty($_POST['submit'])){
+            
+            $message[] = "<h4 class='text-center bg-danger'>one or more fields are still empty!</h4>";
+            $check = false;
+        }
+        
+        // display msg if password and confirm_password does not match
+        if($password !== $confirm_password){
+            $message[] = "<h4 class='text-center bg-danger'>password does NOT MATCH!, Plz try again.</h4>";
+            $check = false;
+        }
+        
+        // if registeration is fine then encrypt password
+        if($check){
+            
+            // save the row password and the password hash
+            $new_user->password_hash = $new_user->set_password_hash($password);
+            $new_user->password = $password;
+            
+            if($new_user->save())
+                $message[] = "<p class='text-center bg-success'>Successfuly registered! </p>";
+            else
+                $message[] = "<p class='text-center bg-warning'>Something went wrong, Plz try again! </p>";
+        }
+        
+        return $message;
+    }
     
 }
 
@@ -237,17 +293,35 @@ function create_user(){
         $user->username = trim($_POST['username']);
         $user->first_name = trim($_POST['first_name']);
         $user->second_name = trim($_POST['second_name']);
-        $user->user_email = trim($_POST['user_email']);
         $user->user_register_date = date('Y-m-d H:i:s');
         $user->user_role = trim($_POST['user_role']);
         $user->set_file($_FILES['file_upload']);
         
+        // check email regular expression with this
+        // pattern " ^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$ "
+        $reg_expr = "/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/";
+        if(preg_match($reg_expr, trim($_POST['user_email'])))
+            $user -> user_email = $_POST['user_email'];
+        else{
+            $message = "Wrong Email!, plz write a right formatted email";
+            redirect("add_user.php?msg=$message");
+        }
+        
+        // check if post has empty fields
+        if(is_post_empty($_POST['add_user'])){
+            
+            $message = "There is one or more fields empty";
+            redirect("add_user.php?msg=$message");
+        }
+        
         // check the password and confirm password
-        $password = $_POST['password'];
-        $confirm_password = $_POST['confirm_password'];
+        $password = trim($_POST['password']);
+        $confirm_password = trim($_POST['confirm_password']);
         if($password === $confirm_password){
 
-            $user -> password = trim($_POST['password']);
+            // create and set the password hash and set the plain password
+            $user->password = trim($_POST['password']);
+            $user->password_hash = $user->set_password_hash(trim($_POST['password']));
             
             // unset the file infos if the file is not uploaded properly 
             // for example the file is already exist
@@ -294,15 +368,50 @@ function update_user(){
         $user -> first_name = trim($_POST['first_name']);
         $user -> second_name = trim($_POST['second_name']);
         $user -> user_role = $_POST['user_role'];
-        $user -> user_email = $_POST['user_email'];
         $user -> set_file($_FILES['file_upload']);
-
-        if(check_post_password($user->password)){
+        
+        
+        // check email regular expression with this
+        // pattern " ^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$ "
+        $reg_expr = "/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/";
+        if(preg_match($reg_expr, trim($_POST['user_email'])))
+            $user -> user_email = $_POST['user_email'];
+        else{
+            $message = "Wrong Email!, plz write a right formatted email";
+            return;
+        }
+            
+        
+        // check if post has empty fields
+        if(is_post_empty($_POST['update'])){
+            
+            // we make here an exception for password fields
+            if(!empty($_POST['password']) || !empty($_POST['new_password']) || !empty($_POST['confirm_password'])){
+                
+                $message = "There is one or more fields empty";
+                return;
+            }
+        }
+        
+        if(check_post_password($user->password_hash)){
             
             // it will only assigned if I really changed the password
             // if left the fields empty nothing will happen
-            if(!empty($_POST['new_password']))
-                $user -> password = trim($_POST['new_password']);
+            if(!empty($_POST['new_password'])){
+                
+                if(trim($_POST['new_password']) === trim($_POST['confirm_passsword'])){
+                    
+                    // create and set the password hash and set the plain password
+                    $user->password = trim($_POST['new_password']);
+                    $user->password_hash = $user->set_password_hash(trim($_POST['new_password']));
+                }else{
+                    
+                    // return nothing with error message if the two password fields did not match
+                    $message = "Password does NOT MATCH!, plz try again.";
+                    return;
+                }
+                
+            }
             
             // unset the file infos if the file is not uploaded properly 
             // for example the file is already exist
@@ -503,7 +612,25 @@ function create_comment(){
                             *---- Deprecated Code ---*
         
         
+        // Line : 2
+        // --------
         
+        // --- autoload to scan unincluded classes files ---
+
+// course way 
+// Hint: the course instructor did change it to the better way later on
+
+//function __autoload($class){
+//    
+//    $class = strtolower($class);
+//    $path = "includes/{$class}.php";
+//    
+//    if(file_exists($path))
+//        require_once($path);
+//    else
+//        die("FILE {$class}.php is not FOUND!");
+//}
+
         
         
         // Line : 43

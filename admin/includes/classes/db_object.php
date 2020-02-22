@@ -62,11 +62,11 @@
                 $new_obj = new $called_class;
                 
                 // loop in class properties
-                foreach($properties as $propertie => $value){
+                foreach($properties as $property => $value){
                     
                     // check each $property if exists
-                    if($new_obj->has_attribute($propertie)){
-                        $new_obj->$propertie = $value;
+                    if($new_obj->has_attribute($property)){
+                        $new_obj->$property = $value;
                     }else
                         return false;
                 }
@@ -413,6 +413,19 @@
             $bytes /= (1 << (10 * $pow)); // bit wise method
 
             return round($bytes, $precision) . ' ' . $units[$pow];
+        }
+        
+        // set password hash
+        public function set_password_hash($password){
+            
+            $options = [
+                'mermory_cost' => 1<<17,
+                'time_cost' => 4,
+                'threads' => 2
+            ];
+            
+            return password_hash($password, PASSWORD_ARGON2I, $options);
+            
         }
     }
 

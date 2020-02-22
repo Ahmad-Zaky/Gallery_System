@@ -25,7 +25,7 @@
         $second_name = $user->second_name;
         $user_email = $user->user_email;
         $user_role = $user->user_role;
-        $user_register_date = $user->user_register_date;
+        $user_register_date = format_date_time($user->user_register_date);
         
         // taking the updated data from Form to DB
         update_user();
@@ -42,7 +42,6 @@
             $first_name = $_POST['first_name'];
             $second_name = $_POST['second_name'];
             $user_email = $_POST['user_email'];
-            $user_role = $_POST['user_role'];
             $user_register_date = $_POST['user_register_date'];
 
         }
@@ -124,11 +123,15 @@
                            <label for="alternate_text">Confirm Password</label>
                             <input type="password" name="confirm_password"  class="form-control">
                         </div>
+                        
 
                         <div class="from-group pull-right ">
                                 <input type="submit" name="update" value="Update" class="btn btn-primary">
                         </div> 
 
+                        <!-- user role element is hidden for the subscriber user -->
+                        <input name="user_role" value="<? echo $user_role ?>" hidden>
+                        
                     </div>
 
 

@@ -1,10 +1,5 @@
 <?php require_once("includes/header.php"); ?>
 
-<?php 
-
-    registeration();
-
-?>
 
 <div id="page-wrapper">
 
@@ -21,9 +16,21 @@
                             <div class="form-wrap">
                             <h1 style="text-align: center">Register</h1>
 
-                            <? echo $session->message() ?>
+                              
+                              
+                            <!-- ***** Registeration function process ***** -->
+                           
+                           
+                            <?  // get registeration success or error messages
+                                $messages = registeration();
+                                
+                                // Display registeration errors
+                                if(!empty($messages))          
+                                    foreach($messages as $msg)
+                                        echo $msg;
+                            ?>
 
-
+                    
                             <form role="form" action="" method="post" id="login-form" autocomplete="off">
                             <div class="form-group">
                                 <label for="username" class="sr-only">username</label>
@@ -88,5 +95,16 @@
 
 
 <!-- List of features to add in future -->
+
+<!-- 
+
+    ----------
+    TODO List:
+    ----------
+        
+        1. add the password_needs_rehash() function.
+    
+-->
+
 
 

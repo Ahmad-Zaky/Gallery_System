@@ -5,7 +5,7 @@
     // ------- Properties -------
         
         /* --- GENERIC NAMES --- */
-        protected static $db_table_fields = array("user_id", "username", "password", "first_name", "second_name", "photo_name", "user_email", "user_register_date", "user_role");
+        protected static $db_table_fields = array("user_id", "username", "password", "password_hash", "first_name", "second_name", "photo_name", "user_email", "user_register_date", "user_role");
         protected static $db_table = "users";
 
 
@@ -14,6 +14,7 @@
         protected $user_id = 0;
         protected $username = "";
         protected $password = "";
+        protected $password_hash = ""; /* Generic Name */
         protected $first_name = "";
         protected $second_name = "";
         protected $user_email = "";
@@ -60,15 +61,93 @@
             $password = $db->escape_string($password);
             
             $query = "SELECT * FROM ". self::$db_table ." WHERE ";
-            $query .= "username = '$username' AND ";
-            $query .= "password = '$password' ";
+            $query .= "username = '$username'";
             
             $user_found = self::makeQuery($query);
             
-            return !empty($user_found) ? array_shift($user_found) : false;
+            $user = array_shift($user_found);
+            
+            if($user){
+                
+                // check if there is a password_hash
+                if($user->password_hash !== ""){
+                    
+                    if(!password_verify($password, $user->password_hash))
+                        return false;
+                }else{
+                    
+                    if($password !== $user->password)
+                        return false;
+                    
+                    // set a password hash if there is no one
+                    $user->password_hash = $user->set_password_hash($password);
+                    $user->save();
+                }
+                return $user;
+            }
+            return false;
         }
         
+        // check if there is user with the same username 
+        public static function find_byUsername($username){
+            
+            // check the nr. of rows retrieved from the query if 0 then no similar username
+            // if 1 or more then ther is similar username
+            global $db;
+            
+            $query = "SELECT * FROM users WHERE ";
+            $query .= "username = '$username'";
+
+            $reuslt = $db->query($query);
+            $rows_cnt = $reuslt->num_rows;
+            
+            return $rows_cnt;
+        }
         
+        public static function get_admin_users(){
+            
+            global $db;
+            
+            $query = "SELECT * FROM users ";
+            $query .= "WHERE user_role = 'admin'";
+           
+            $result = self::makeQuery($query);
+            
+            return $result;
+        }   
+        
+        // get Nr. of admin users
+        public static function admin_counter(){
+            
+            global $db;
+            
+            $query = "SELECT COUNT(*) FROM users ";
+            $query .= "WHERE (user_role = 'admin') ";
+           
+            $result = $db->query($query);
+            
+            $row = $result->fetch_array(MYSQLI_NUM);
+            
+            return !empty($row) ? $row[0] : false;
+            
+        }
+        
+                   
+        // get Nr. of subscriber users
+        public static function subscriber_counter(){
+            
+            global $db;
+            
+            $query = "SELECT COUNT(*) FROM users ";
+            $query .= "WHERE (user_role = 'subscriber') ";
+           
+            $result = $db->query($query);
+            
+            $row = $result->fetch_array(MYSQLI_NUM);
+            
+            return !empty($row) ? $row[0] : false;
+            
+        }
     }
 
 ?>
@@ -78,8 +157,15 @@
 
 
 <!--
-       /* ----- DEPRECATED CODE ----- */ 
+                   /* ----- DEPRECATED CODE ----- */ 
 
+            // LINE : 75
+            // ---------
+             
+
+//            $query = "SELECT * IFNULL( (SELECT * FROM users WHERE ";
+//            $query .= "username = '$username'), 'NOT FOUND') ";
+//            $query .= "AS my_username FROM users";
         
         
         // set methods

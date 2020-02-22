@@ -18,24 +18,21 @@
       
       // Draw the pie chart 1 and 2
       google.charts.setOnLoadCallback(drawChart_Photos);
+      google.charts.setOnLoadCallback(drawChart_UserPhotos);
       google.charts.setOnLoadCallback(drawChart_Users);
       google.charts.setOnLoadCallback(drawChart_Comments);
-      google.charts.setOnLoadCallback(drawChart_Categories);
 
       // Callback that draws the pie chart 1
       function drawChart_Photos() {
 
         var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
+          ['photo_status', 'Photo Count'],
+          ['draft',<? echo Photo::draft_counter(); ?>],
+          ['published',<? echo Photo::published_counter();?>]
         ]);
 
         var options = {
-          title: 'My Daily Activities',
+          title: 'Photos Status',
           width:500,
           height:400
         };
@@ -46,19 +43,49 @@
       }
       
       // Callback that draws the pie chart 2
-      function drawChart_Users() {
+      function drawChart_UserPhotos() {
 
         var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
+          
+          <? 
+            echo "['User admin', 'count photos'],";
+            $admin_users = User::get_admin_users(); 
+            foreach($admin_users as $admin_user){
+                $user_photos = Photo::find_photos_by_userID($admin_user->user_id);
+                $count_user_photos = count($user_photos);
+                
+                echo "[  $admin_user->username ,  $count_user_photos ],";
+            }
+          ?>
+//                    join(',',  "[  $admin_user->username ,  $count_user_photos ]")
+          
+          
+         
         ]);
 
         var options = {
-          title: 'My Daily Activities',
+          title: 'Users Photos',
+          width:500,
+          height:400
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_UserPhotos'));
+
+        chart.draw(data, options);
+      }
+      
+                                        
+      // Callback that draws the pie chart 3
+      function drawChart_Users() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['User_role', 'User Count'],
+          ['admin',<? echo User::admin_counter() ?>],
+          ['subscriber',<? echo User::subscriber_counter() ?>]
+        ]);
+
+        var options = {
+          title: 'Users Role',
           width:500,
           height:400
         };
@@ -66,52 +93,25 @@
         var chart = new google.visualization.PieChart(document.getElementById('piechart_Users'));
 
         chart.draw(data, options);
-      }
-      
-                                        
-      // Callback that draws the pie chart 2
+      }                        
+
+        
+      // Callback that draws the pie chart 4
       function drawChart_Comments() {
 
         var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
+          ['Comment Status', 'Comment Count'],
+          ['pinned',<? echo Comment::pinned_counter() ?>],
+          ['unpinned',<? echo Comment::unpinned_counter() ?>]
         ]);
 
         var options = {
-          title: 'My Daily Activities',
+          title: 'Comments Status',
           width:500,
           height:400
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart_Comments'));
-
-        chart.draw(data, options);
-      }                        
-
-        
-      // Callback that draws the pie chart 2
-      function drawChart_Categories() {
-
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
-        ]);
-
-        var options = {
-          title: 'My Daily Activities',
-          width:500,
-          height:400
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart_Categories'));
 
         chart.draw(data, options);
       }

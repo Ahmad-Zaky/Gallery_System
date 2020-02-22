@@ -90,17 +90,39 @@
             return !empty($row) ? $row[0] : false;
         }
         
-        
-                            
-                            /* ----- User photos ----- */
-        public static function get_user_photos($user_id = 0){
+        // get Nr. of draft photos
+        public static function draft_counter(){
             
+            global $db;
+            
+            $query = "SELECT COUNT(*) FROM photos ";
+            $query .= "WHERE (photo_status = 'draft') ";
+           
+            $result = $db->query($query);
+            
+            $row = $result->fetch_array(MYSQLI_NUM);
+            
+            return !empty($row) ? $row[0] : false;
             
         }
+        
+                
+        // get Nr. of published photos
+        public static function published_counter(){
             
+            global $db;
             
+            $query = "SELECT COUNT(*) FROM photos ";
+            $query .= "WHERE (photo_status = 'published') ";
+           
+            $result = $db->query($query);
             
+            $row = $result->fetch_array(MYSQLI_NUM);
             
+            return !empty($row) ? $row[0] : false;
+            
+        }
+                            
                             /* ----- Page photos ----- */
 
         // get the page photos from DB

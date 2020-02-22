@@ -50,6 +50,42 @@
             
             return self::makeQuery($qeury);
         } 
+        
+        
+                     
+        // get Nr. of pinned comments
+        public static function pinned_counter(){
+            
+            global $db;
+            
+            $query = "SELECT COUNT(*) FROM comments ";
+            $query .= "WHERE (comment_status = 'pinned') ";
+           
+            $result = $db->query($query);
+            
+            $row = $result->fetch_array(MYSQLI_NUM);
+            
+            return !empty($row) ? $row[0] : false;
+            
+        }
+        
+                     
+        // get Nr. of unpinned comments
+        public static function unpinned_counter(){
+            
+            global $db;
+            
+            $query = "SELECT COUNT(*) FROM comments ";
+            $query .= "WHERE (comment_status = 'unpinned') ";
+           
+            $result = $db->query($query);
+            
+            $row = $result->fetch_array(MYSQLI_NUM);
+            
+            return !empty($row) ? $row[0] : false;
+            
+        }
+        
     }
 ?>
 
