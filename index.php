@@ -3,16 +3,27 @@
 <?php include("includes/header.php"); ?>
 
 <?php 
+                    /* -------- user photos ---------- */
+
+
+    // if I chose the Author of the photo it should shows here his photos
+    $id = 0;
+    if(isset($_GET['photo_id'])){
+        $id = $_GET['photo_id'];
+    }
+
+
                         /* ------- PAGINATION ------- */
     
     $message = "";
     $page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
     $IPP = 4; // IPP: Items Per Page its 4 for now should be increased to ~ 10 
-    $ITC = Photo::counter(); //ITC: Items Total Count
+    $ITC = Photo::approved_counter($id); //ITC: Items Total Count
     $paginator = new Paginator($page, $IPP, $ITC);
     
     // a SQL query to get page photos related to our $paginator object 
-    $photos = Photo::get_page_photos($paginator);
+    // it will return only published photos and if $id is specified it will return only this user_id photos
+    $photos = Photo::get_page_photos($paginator, $id);
     
     // check if it returns true
     if(!$photos):
@@ -32,9 +43,10 @@
             <div class="thumbnail row">
                 <!-- Display photo by photo from DB -->
                 <? foreach( $photos as $photo) : 
+                    
                 
-                    /* --- Filter Photos Without real photos ---*/
-                    if($photo->photo_name == "" || $photo->photo_status == "draft")
+                    /* --- Filter Photos Without real photos --- */
+                    if($photo->photo_name == "")
                         continue;
                 ?>
                 
@@ -47,46 +59,8 @@
                 <? endif; ?>
             </div>
             
-            <!-- Pagination -->
-            <div class="row">
-                <ul class="pager">
-                   <? if($paginator->Total_pages() > 1): ?>
-                       
-                       <!-- NEXT -->
-                       <? if($paginator->has_next()): ?> 
-                    <li class="next">
-                       <a href="index.php?page=<? echo $paginator->Next();?>">Next</a>
-                    </li>
-                        <? endif; ?>
-                       <!-- /.NEXT -->
-                    
-                       <!-- PAGE Nr -->
-                       <? for($i = 1; $i <= $paginator->Total_pages(); $i++): ?>
-                           <? if($i == $page): ?>
-                       <li class="active">
-                           <a href="index.php?page=<? echo $i ?>"><? echo $i ?></a>
-                       </li>
-                           <? else: ?>
-                       <li>
-                           <a href="index.php?page=<? echo $i ?>"><? echo $i ?></a>
-                       </li>
-                           <? endif; ?>
-                       <? endfor;?>
-                       <!-- /.PAGE Nr -->
-                       
-                       
-                       <!-- PREVIIOUS -->
-                        <? if($paginator->has_previous()): ?>    
-                    <li class="previous">
-                       <a href="index.php?page=<? echo $paginator->Previous();?>">Previous</a>
-                    </li>
-                        <? endif; ?>
-                       <!-- /.PREVIIOUS -->
-                        
-                    <? endif; ?>
-                </ul>
-            </div>  
-            <!-- /.Pagination -->
+                 <?php include("includes/pagination.php"); ?>
+            
             
         </div>
         <!-- /.Blog Entries Column -->
@@ -121,10 +95,19 @@
   <!--     
         
         // Line : 6 
-          
+        -----------
+            
         /* ------- FETCH ALL PHOTOS AND DISPLAY THEM HERE ------- */
     
     
 //    $photos = Photo::find_all(); 
-
-  -->  
+        
+        // Line : 21
+        ------------
+        
+        
+//    $ITC = Photo::counter(); 
+ 
+ 
+ 
+-->  

@@ -8,16 +8,20 @@
     // redirect to index if no id is specified
     if(empty($_GET['id']))
         redirect("index.php");
+
+
+                /* ---- Fetching The Photo by ID ---- */
     
+    $photo = Photo::find_byID($_GET['id']);
+
+
     // retrieving all comments related to this photo
     $comments = Comment::find_comm_by_photoID($_GET['id']); 
     
     // creating the submitted comment
     create_comment();
 
-            /* ---- Fetching The Photo by ID ---- */
 
-    $photo = Photo::find_byID($_GET['id']);
 ?>
 
 
@@ -39,13 +43,13 @@
 
                 <!-- Author -->
                 <p class="lead">
-                    by <a href="#">Start Bootstrap</a>
+                    by <a href="index.php?photo_id=<? echo $photo->user_id; ?>" ><? echo $photo->find_photo_username(); ?></a>
                 </p>
 
                 <hr>
 
                 <!-- Date/Time -->
-                <p><span class="glyphicon glyphicon-time"></span> Posted on </p>
+                <p><span class="glyphicon glyphicon-time"></span> Posted on <? echo format_date_time($photo->photo_upload_date); ?> </p>
 
                 <hr>
 
@@ -68,13 +72,22 @@
 
                 <!-- Comments Form -->
                 <div class="well">
-                    <h4>Leave a Comment:</h4>
+                   <!-- Add the username if signed in -->
+                    <h4>Leave a Comment: 
+                    <? if($session->is_signedIn()) echo $_SESSION['username']; ?>
+                    </h4>
+                    <p style="text-align: center">
+                    <?  echo $session->message(); ?>
+                    </p>
                     <form role="form" method="post">
-                        
+                       
+                        <!-- Add Name if not registered yet -->
+                        <? if(!$session->is_signedIn()): ?>
                         <div class="form-group">
-                           <label for="author">Author</label>
+                           <label for="author">Name</label>
                             <input class="form-control" type="text" name="author" >
                         </div>
+                        <? endif; ?>
                         
                         <div class="form-group">
                             <textarea class="form-control" name="body" rows="3"></textarea>
@@ -97,8 +110,16 @@
                         <img class="media-object" src="http://placehold.it/64x64" alt="">
                     </a>
                     <div class="media-body">
-                        <h4 class="media-heading"> <? $comment -> author ?>
-                            <small>August 25, 2014 at 9:30 PM</small>
+                        <h4 class="media-heading"> 
+                           
+                           <? // Display username if signed in, Entered Name if not registered
+                            if($session->is_signedIn())
+                                echo $_SESSION['username'];
+                            else
+                                echo $comment->comment_author; 
+                            ?>
+                            
+                            <small>at <? echo format_date_time($comment->comment_date) ?></small>
                         </h4>
                         <? echo $comment -> comment_body?>
                     </div>

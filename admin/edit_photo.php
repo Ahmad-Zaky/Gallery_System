@@ -26,6 +26,7 @@
             $caption = $photo -> photo_caption;
             $alternate_text = $photo -> photo_alternate_text;
             $description = $photo -> photo_description;
+            $upload_date = $photo -> photo_upload_date;
             $status = $photo -> photo_status;
         }else
             $message = "Photo not found! " . $photos_lnk;
@@ -44,6 +45,7 @@
             $caption = $_POST['caption'];
             $alternate_text = $_POST['alternate_text'];
             $description = $_POST['description'];
+            $upload_date = $_POST['upload_date'];
             $status = $_POST['status'];
         }
     }else
@@ -141,7 +143,7 @@
                                 <div class="inside">
                                   <div class="box-inner">
                                      <p class="text">
-                                       <span class="glyphicon glyphicon-calendar"></span> Uploaded on: April 22, 2030 @ 5:26
+                                       <span class="glyphicon glyphicon-calendar"></span> Uploaded on: <? echo format_date_time($upload_date); ?>
                                       </p>
                                       <p class="text ">
                                         Photo Id: <span class="data photo_id_box"><? echo $photo->photo_id;?></span>

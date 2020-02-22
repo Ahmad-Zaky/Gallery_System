@@ -49,6 +49,15 @@
         }
         
         
+        // get photo username function
+        public function find_photo_username(){
+            
+            $user = User::find_byID($this->user_id);
+            
+            return $user->username;
+        }
+        
+        
         // find Photos by user ID
         public static function find_photos_by_userID($user_id = 0){
             
@@ -62,12 +71,48 @@
             
         }
         
+        // get approved photos count and user photos if specified
+        public static function approved_counter($user_id = 0){
+            
+            global $db;
+            
+            $query = "SELECT COUNT(*) FROM photos ";
+            $query .= "WHERE (photo_status = 'published' AND photo_name != '') ";
+            
+            // Add user_id condition
+            if($user_id)
+                $query .= "AND (user_id = $user_id)";
+            
+            $result = $db->query($query);
+            
+            $row = $result->fetch_array(MYSQLI_NUM);
+            
+            return !empty($row) ? $row[0] : false;
+        }
+        
+        
+                            
+                            /* ----- User photos ----- */
+        public static function get_user_photos($user_id = 0){
+            
+            
+        }
+            
+            
+            
+            
                             /* ----- Page photos ----- */
 
         // get the page photos from DB
-        public static function get_page_photos($paginator){
+        public static function get_page_photos($paginator, $user_id){
 
             $query = "SELECT * FROM photos ";
+            $query .= "WHERE (photo_status = 'published' AND photo_name != '') ";
+            
+            // Add user_id condition
+            if($user_id)
+                $query .= "AND (user_id = $user_id) ";
+                
             $query .= "LIMIT {$paginator->IPP} ";
             $query .= "OFFSET {$paginator->offset()}";
 

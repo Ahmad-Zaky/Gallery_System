@@ -1,4 +1,6 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        
+       
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -12,9 +14,11 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+               
+               
+                
                 <ul class="nav navbar-nav navbar-right">
-                    
-                    
+                
                     <li>
                     <? if(!$session->is_signedIn()): ?>
                         <a href="admin/login.php">Login</a>
@@ -25,7 +29,7 @@
                     
                     <li>
                     <? if(!$session->is_signedIn()): ?>
-                        <a href="admin/login.php">Register</a>
+                        <a href="register.php">Register</a>
                     <? endif; ?>
                     </li>
                     
@@ -63,6 +67,27 @@
                     
                         <? endif; ?>
                     <? endif; ?>
+                    
+                     
+                    <!-- Add the dropdown user and profile and logout -->
+                    <ul class="nav navbar-nav navbar-right">
+                    <? if($session->is_signedIn()): ?>
+                        <li style="margin-right: 10px" class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <? echo $_SESSION['username'] ?> <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="profile.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+                                </li>
+
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="admin/includes/logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                                </li>
+                            </ul>
+                        </li>
+                    <? endif; ?>
+                    </ul>
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

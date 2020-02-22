@@ -1,11 +1,9 @@
 <?php 
     // getting the loged in username
-    $usrname = "";
-    if($session->is_signedIn()){
-        $usr_id = $_SESSION['user_id'];
-        $usr = User::find_byID($usr_id);
-        $usr ? $usrname = $usr->username : $usrname = "Username";
-    }
+    $uesrname = "";
+    if($session->is_signedIn())
+        ($_SESSION['username']) ? $uesrname = $_SESSION['username'] : $uesrname = "Username";
+    
 
 
 ?>
@@ -27,7 +25,7 @@
                 
                 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <? echo $usrname ?> <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <? echo $uesrname ?> <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="profile.php"><i class="fa fa-fw fa-user"></i> Profile</a>

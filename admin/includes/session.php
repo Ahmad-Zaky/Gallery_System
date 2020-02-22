@@ -70,7 +70,7 @@
             
             if(!empty($msg)){
                 
-                $_SESSION['message'] = $msg;
+                $this -> message = $_SESSION['message'] = $msg;
             
             }else
                 return $this -> message;

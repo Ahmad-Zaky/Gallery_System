@@ -154,7 +154,7 @@
             $query = "INSERT INTO ". static::$db_table ." (". implode(", ", array_keys($properties)) .") ";
             $query .= "VALUES (". implode(", ", $properties_vals) .")";
             
-            echo $query;
+            
             
             // verify query
             if($db->query($query)){

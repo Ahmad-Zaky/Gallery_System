@@ -2,6 +2,7 @@
 <?php if(!$session->is_signedIn()) redirect("login.php"); ?>
 <?php if($_SESSION['user_role'] == "subscriber") redirect("../index.php");?>
 
+<? apply_selected_options(); ?>
 
        
         <!-- Navigation -->
@@ -36,10 +37,28 @@
                         <p class="bg-success">
                             <? echo $session->message(); ?>
                         </p>
+                            <!-- Form for bulk option -->
+                            <form action="" method="post">
+                            
+                                <!-- add some options list -->
+                               <div class="col-md-4" id="bulkOptionContainer" >
+                                   <select name="bulkOption" id="" class="form-control">
+                                       <option value="">Select Options</option>
+                                       <option value="published">Publish</option>
+                                       <option value="draft">Draft</option>
+                                       <option value="delete_photo">Delete</option>
+                                   </select>
+                                </div>
+                                <input type="submit" name="submit" class="btn btn-success" value="Apply">
+                                <!-- /.add some options list -->
+
+
+                            
                         <div class="col-md-12">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
+                                       <th><input type="checkbox" onclick="toggle(this)" id="selectAllBoxes"></th>
                                         <th>Photo</th>
                                         <th>ID</th>
                                         <th>Name</th>
@@ -56,14 +75,14 @@
 <!-- Change photo status by $_GET[''] using <a> link tags -->
 <?php 
     
-    // in case we clicked on admin link
+    // in case we clicked on draft link
     if(isset($_GET['draft'])){
         
         $photo_id = $_GET['draft'];
         set_photo_status($photo_id, "draft");
     }
         
-    // in case we clicked on subscriber link
+    // in case we clicked on publish link
     if(isset($_GET['publish'])){
         
         $photo_id = $_GET['publish'];
@@ -98,7 +117,9 @@
 ?>
                                 <tbody>
                                     <tr>
-
+                                    
+                                    <td><input type="checkbox" class="checkBoxes" name="chkBoxArr[]" value="<?php echo $id?>" > </td>
+                                    
                                     <td>
                                         <a href="../photo.php?id=<?echo $id; ?>">
                                             <img class="admin-photo-thumbnail" src="<? echo $img_path;?>" alt='Gallery image'>
@@ -134,6 +155,8 @@
                                 </tbody>
                             </table>
                             <!-- END OF TABLE -->
+                            </form>
+                            <!-- END OF FORM -->
                         </div>
                     </div>
                 </div>

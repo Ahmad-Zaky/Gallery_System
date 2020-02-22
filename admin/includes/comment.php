@@ -5,7 +5,7 @@
         /* ----- PROPERTIES ----- */
         
         /* --- GENERIC NAMES --- */
-        protected static $db_table_fields = array("comment_id", "photo_id", "comment_author", "comment_body", "comment_date", "user_id");
+        protected static $db_table_fields = array("comment_id", "photo_id", "comment_author", "comment_body", "comment_date", "comment_status", "user_id");
         protected static $db_table = "comments";
         
         /* --- Class Table Properties --- */
@@ -14,6 +14,7 @@
         protected $comment_author = "";
         protected $comment_body = "";
         protected $comment_date = "";
+        protected $comment_status = "";
         protected $user_id = 0;
         
         

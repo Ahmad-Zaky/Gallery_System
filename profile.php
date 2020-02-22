@@ -104,24 +104,6 @@
                             <input type="text" name="user_email" value="<? echo $user_email; ?>" class="form-control">
                         </div>
 
-                        <div class="form-group">
-                            <br><label for="user_role">User Role</label><br>
-                            <select name="user_role" id="">
-
-                            <!-- Arrange the options depend on the user_role -->
-                            <? if($user_role == 'subscriber'):?>
-
-                                <option value='subscriber'>Subscriber</option>
-                                <option value='admin'>Admin</option>
-
-                            <? else: ?>
-
-                                <option value='admin'>Admin</option>
-                                <option value='subscriber'>Subscriber</option>
-
-                            <? endif; ?>
-                            </select>
-                        </div>
 
                         <div class="form-group">
                             <label for="">   Register Date </label>

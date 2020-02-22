@@ -2,7 +2,21 @@ $(document).ready(function(){
     
     
   
+    // select all checkboxes option
+    $("#selectAllBoxes").click(function(event){
+        
+        if(this.checked){
+            $(".checkBoxes").each(function(){
+                this.checked = true;
+            });
+        }else{
+            $(".checkBoxes").each(function(){
+                this.checked = false;
+            });
+        }
+    });
     
+    // in edit Photo turn the sidebar up and down
     $(".info-box-header").click(function(){
         
         $(".box-inner").slideToggle("fast");
@@ -15,7 +29,7 @@ $(document).ready(function(){
         
     });
     
-    
+    // confirm delete link before execution
     $(".delete-link").click(function(){
        
         return confirm("Confirm with 'ok' if want realy delete the Item.");

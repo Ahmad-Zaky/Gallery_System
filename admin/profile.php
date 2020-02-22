@@ -139,7 +139,7 @@
                                      
                                 <div class="form-group">
                                     <label for="">   Register Date </label>
-                                    <input  value="<?php echo $user_register_date; ?>" type="text" class="form-control" name="user_register_date" readonly>
+                                    <input  value="<?php echo format_date_time($user_register_date); ?>" type="text" class="form-control" name="user_register_date" readonly>
                                 </div>
                                       
                                 <div class="form-group">

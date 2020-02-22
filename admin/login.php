@@ -5,6 +5,7 @@
     // initialize our usr and pwd
     $username = "";
     $password = "";
+    $message = "";
 
     // in case user is already loged in we redirect him back to index
     if(isset($_SESSION['user_id'])){
@@ -13,6 +14,8 @@
     
     // get our POST data and processing it
     login_form();
+
+
 ?>
 
 
@@ -54,8 +57,17 @@
 
 
 <!-- List of features to add in future -->
-   
-                                           <!-- DEPRECATED CODE -->
+<!--
+
+    ----------
+    TODO List:                     
+    ----------
+    
+        1. Why the wrong usr or pwd does not show the first time but after the second time.
+                                                                                                         
+-->
+                                   
+                                    <!-- DEPRECATED CODE -->
                                            
                                            
 <!--

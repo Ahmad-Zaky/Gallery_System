@@ -2,6 +2,9 @@
 <?php if(!$session->is_signedIn()) redirect("login.php"); ?>
 <?php if($_SESSION['user_role'] == "subscriber") redirect("../index.php");?>
 
+<? apply_selected_options(); ?>
+       
+
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             
@@ -31,11 +34,30 @@
                             <? echo $session->message(); ?>
                         </p>
                         
+                        
+                    <!-- Form for bulk option -->
+                    <form action="" method="post">
+
+                        <!-- add some options list -->
+                       <div class="col-md-4" id="bulkOptionContainer" >
+                           <select name="bulkOption" id="" class="form-control">
+                               <option value="">Select Options</option>
+                               <option value="admin">Admin</option>
+                               <option value="subscriber">Subscriber</option>
+                               <option value="delete_user">Delete</option>
+                           </select>
+                        </div>
+                        <input type="submit" name="submit" class="btn btn-success" value="Apply">
+                        <!-- /.add some options list -->
+
+
                     <div class="col-md-12">
                         <a class="btn btn-primary" href="add_user.php">Add New User</a>
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
+                                       <th><input type="checkbox" onclick="toggle(this)" id="selectAllBoxes"></th>
+
                                         <th>ID</th>
                                         <th>Photo</th>
                                         <th>Username</th>
@@ -95,6 +117,8 @@
                                 <tbody>
 
                                     <tr>
+                                    <td><input type="checkbox" class="checkBoxes" name="chkBoxArr[]" value="<?php echo $id?>" > </td>
+
                                     <td> <? echo $id; ?> </td>
 
                                     <td>
@@ -132,7 +156,8 @@
                             </table>
                             <!-- END OF TABLE -->
                         </div>
-                        
+                        </form>
+                        <!-- END OF FORM -->
                     </div>
                 </div>
                 <!-- /.row -->

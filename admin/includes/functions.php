@@ -38,6 +38,24 @@ function redirect($location){
     header("Location: {$location}");
 }
 
+// --- Format Date and Time ---
+function format_date_time($date_time){
+    
+    // Date 
+    $Day_nr = date('d', strtotime($date_time));
+    $Day_name = date('D', strtotime($date_time));
+    $Month = date('F', strtotime($date_time));
+    $Year = date('Y', strtotime($date_time));
+    
+    // Time 
+    $hour = date('h', strtotime($date_time));
+    $minute = date('i', strtotime($date_time));
+    $_12Sys = date('A', strtotime($date_time));
+    
+    // should look like this 'Tue 24 August, 2013 at 9:00 PM'
+    return "$Day_name $Day_nr $Month, $Year at $hour:$minute $_12Sys";
+    
+}
 
 // --- check $_POST if it has empty values ---
 function is_post_empty(){
@@ -83,7 +101,7 @@ function set_user_role($user_id, $user_role){
     }
 }
 
-// ------ set new user role function ------
+// ------ set new photo status function ------
 function set_photo_status($photo_id, $photo_status){
     
     // find user by id
@@ -96,6 +114,27 @@ function set_photo_status($photo_id, $photo_status){
         // save the user new infos, save() is from the DB_object class
         $photo->save();
     }
+}
+
+// ------ set new comment status function ------
+function set_comment_status($comment_id, $comment_status){
+    
+    // find comment by id
+    $comment = Comment::find_byID($comment_id);
+    if($comment){
+        
+        // set the new comment status
+        $comment->comment_status = $comment_status;
+
+        // save the comment new infos, save() is from the DB_object class
+        $comment->save();
+    }
+}
+
+// --- Registeration Form function ---
+function registeration(){
+    
+    
 }
 
 // ---- Login Form function ---
@@ -117,12 +156,60 @@ function login_form(){
             redirect("index.php");
             
         }else{ 
-
+            // 
             // if not found then we have two possibilities 1. fields are empty. 2. wrong usr or pwd 
             if(!empty($username) && !empty($password))
                 $session->message("Username or Password are not correct!, plz try again.");
             else
                 $session->message("One of more fields are empty, plz fill the empty field.");
+            
+            redirect("login.php"); // to activate the $session->message("...");
+        }
+    }
+}
+
+// Apply options on selected records function
+function apply_selected_options(){
+    
+    // get the submitted form for selected check boxes
+    if(isset($_POST['chkBoxArr'])){
+        
+        // loop through in each check box with its id value
+        foreach($_POST['chkBoxArr'] as $ValID){
+            
+            // get the selected option to apply on each record alone
+            $bulkOption = $_POST['bulkOption'];
+            
+            switch($bulkOption){
+                    
+                case 'published':
+                case 'draft':
+                    set_photo_status($ValID, $bulkOption);
+                break;
+                case 'admin':
+                case 'subscriber':
+                    set_user_status($ValID, $bulkOption);
+                break;
+                case 'pinned':
+                case 'unpinned':
+                    set_comment_status($ValID, $bulkOption);
+                break;
+                case 'delete_photo':
+                    $photo = Photo::find_byID($photoValID);
+                    if($photo)
+                        $photo->delete_with_file();
+                break;
+                case 'delete_user':
+                    $user = Ucommentser::find_byID($ValID);
+                    if($user)
+                        $user->delete_with_file();
+                break;
+                case 'delete_comment':
+                    $comment = Comment::find_byID($ValID);
+                    if($comment)
+                        $comment->delete();
+                break;
+            } 
         }
     }
 }
@@ -272,7 +359,7 @@ function create_photo(){
         $photo = new Photo();
         $photo -> photo_title = trim($_POST['title']);
         $photo -> photo_caption = trim($_POST['caption']);
-        $photo -> photo_description = trim($_POST['description']);
+        $photo -> photo_description = strip_tags(trim($_POST['description']));
         $photo -> set_file($_FILES['file_upload']);
         $photo -> photo_alternate_text = trim($_POST['alternate_text']);
         $photo -> photo_upload_date = date('Y-m-d H:i:s');
@@ -355,32 +442,39 @@ function update_photo(){
 // creating a submitted comment
 function create_comment(){
     
+    global $session;
+    
     if(isset($_POST['submit'])){
         
-        // set all properties in an array 
-        $properties = array();
-        
-        $photo = Photo::find_byID($_GET['id']);
-        if($photo)
-        {
-            // set values for comment properties 
-            $properties['photo_id'] = $photo->photo_id;
-            $properties['comment_author'] = trim($_POST['author']);
-            $properties['comment_body'] = trim($_POST['body']);
-            $properties['comment_date'] = date('Y-m-d H:i:s');
-            $properties['user_id'] = $_SESSION['user_id'];
+        // check if any field is empty
+        if(empty($_POST['body']))
+            $session->message("One or more fileds are empty!");
+        else{
             
-            // create comment object with the properties values
-            $new_comment = Comment::create_obj($properties);
-            
-            // save the comment and redirect to the same photo page
-            if($new_comment && $new_comment->save())
-                redirect("photo.php?id=$photo->photo_id");
+            // set all properties in an array 
+            $properties = array();
+
+            $photo = Photo::find_byID($_GET['id']);
+            if($photo)
+            {
+                // set values for comment properties 
+                $properties['photo_id'] = $photo->photo_id;
+                $properties['comment_author'] = trim($_POST['author']);
+                $properties['comment_body'] = trim($_POST['body']);
+                $properties['comment_date'] = date('Y-m-d H:i:s');
+                $properties['comment_status'] = "unpinned";
+                $properties['user_id'] = $_SESSION['user_id'];
+
+                // create comment object with the properties values
+                $new_comment = Comment::create_obj($properties);
+
+                // save the comment and redirect to the same photo page
+                if($new_comment && $new_comment->save())
+                    redirect("photo.php?id=$photo->photo_id");
+            }
         }
     }
 }
-
-
 
 
 
@@ -412,8 +506,20 @@ function create_comment(){
         
         
         
+        // Line : 43
+        // ---------
         
-        
+    
+//    // split the date and time apart in array string elements
+//    $DateTime = split(' ', $date_time);
+//    
+//    // save each part in a variable
+//    $Date = $DateTime[0]; $Time = $DateTime[1];
+//    
+//    // split Date and Time again into small pieces
+//    $date_parts = split('-', $Date);
+//    $time_parts = split(':', $Time);
+    // save date parts and time parts in variables
         
         
         

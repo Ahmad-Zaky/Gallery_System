@@ -2,6 +2,8 @@
 <?php if(!$session->is_signedIn()) redirect("login.php"); ?>
 <?php if($_SESSION['user_role'] == "subscriber") redirect("../index.php");?>
 
+<? apply_selected_options(); ?>
+
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             
@@ -36,17 +38,62 @@
                             <? echo $session->message(); ?>
                         </p>
                         
+                        <!-- Form for bulk option -->
+                        <form action="" method="post">
+
+                            <!-- add some options list -->
+                           <div class="col-md-4" id="bulkOptionContainer" >
+                               <select name="bulkOption" id="" class="form-control">
+                                   <option value="">Select Options</option>
+                                   <option value="pinned">Pin</option>
+                                   <option value="unpinned">Unpin</option>
+                                   <option value="delete_comment">Delete</option>
+                               </select>
+                            </div>
+                            <input type="submit" name="submit" class="btn btn-success" value="Apply">
+                            <!-- /.add some options list -->
+
                         <div class="col-md-12">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
+                                       <th><input type="checkbox" onclick="toggle(this)" id="selectAllBoxes"></th>
+
                                         <th>ID</th>
                                         <th>comment</th>
                                         <th>Photo</th>
                                         <th>User</th>
+                                        <th>Status</th>
+                                        <th>pin</th>
+                                        <th>unpin</th>
                                     </tr>
                                 </thead>
+
+           
+                      
+
                                 
+<!-- Change comment status by $_GET[''] using <a> link tags -->
+<?php 
+    
+    // in case we clicked on unpin link
+    if(isset($_GET['unpin'])){
+        
+        $comment_id = $_GET['unpin'];
+        set_comment_status($comment_id, "unpinned");
+    }
+        
+    // in case we clicked on pin link
+    if(isset($_GET['pin'])){
+        
+        $comment_id = $_GET['pin'];
+        set_comment_status($comment_id, "pinned");
+    }
+        
+                                
+?>
+                                                      
+                                                       
 <!-- Get comments infos from DB -->
 <?php 
 
@@ -58,7 +105,8 @@
         $id = $comment -> comment_id;
         $author = $comment -> comment_author;
         $body = $comment -> comment_body;
-        
+        $status = $comment -> comment_status;
+                                
         // get photo for that comment
         $photo_id = $comment -> photo_id;
         
@@ -74,6 +122,8 @@
                                 <tbody>
 
                                     <tr>
+                                    
+                                    <td><input type="checkbox" class="checkBoxes" name="chkBoxArr[]" value="<?php echo $id?>" > </td>
                                     
                                     <td> <? echo $id; ?> </td>
                                     
@@ -98,7 +148,11 @@
                                     <!-- /.The Comment Photo -->
                                     
                                     <td> <? echo $author; ?> </td>
-
+                                    <td> <? echo $status; ?> </td>
+                                    <td><a href="comments.php?pin=<? echo $id ?>">Pin</a></td>
+                                    <td><a href="comments.php?unpin=<? echo $id ?>">Unpin</a></td>
+                                    
+                                    
                                     </tr>
 <?php 
     else:
@@ -111,6 +165,8 @@
                             </table>
                             <!-- END OF TABLE -->
                         </div>
+                        </form>
+                        <!-- END OF FORM -->
                     </div>
                 </div>
                 <!-- /.row -->
