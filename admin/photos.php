@@ -1,8 +1,8 @@
 <?php include("includes/header.php"); ?>
 <?php if(!$session->is_signedIn()) redirect("login.php"); ?>
 <?php if($_SESSION['user_role'] == "subscriber") redirect("../index.php");?>
-
 <? apply_selected_options(); ?>
+
 
        
         <!-- Navigation -->
@@ -25,7 +25,7 @@
 
         <div id="page-wrapper">
 
-                 <div class="container-fluid">
+            <div class="container-fluid">
 
                 <!-- Page Heading -->
                 <div class="row">
@@ -35,7 +35,10 @@
                             <small>PHOTOS</small>
                         </h1>
                         <p class="bg-success">
-                            <? echo $session->message(); ?>
+                            <? 
+                                echo $session->message(); 
+                                $session->set_msg_empty(); // to clear msg after echoing it
+                            ?>
                         </p>
                             <!-- Form for bulk option -->
                             <form action="" method="post">
@@ -155,10 +158,12 @@
                                 </tbody>
                             </table>
                             <!-- END OF TABLE -->
-                            </form>
-                            <!-- END OF FORM -->
-                        </div>
+                            </div>
+                        </form>
+                        <!-- END OF FORM -->
                     </div>
+                    
+                    
                 </div>
                 <!-- /.row -->
 

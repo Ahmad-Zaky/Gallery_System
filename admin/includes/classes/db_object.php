@@ -396,6 +396,33 @@
             return true;
         }
         
+        // check if empty for object properties function
+        // option = "one" then we check one property of specified object
+        // option = "all" then we check all properties of specified object
+        // get property as string name
+        // if no attributes is specified then we assume all properties should be checked
+        public function is_property_empty($property = "", $option = "one"){
+            
+            // for one property epmty checker
+            if($option == "one")
+                if($property !== "")
+                    if(property_exists($this, $property))
+                        if($this->$property == "")
+                            return true;
+            
+            // for all properties empty checker
+            if($property == ""){
+                
+                foreach(static::$db_table_fields as $table_field){
+                    if($this->$table_field == "" || empty($this->$table_field))
+                        return true;
+                }
+                return false;
+            }
+            return false;
+        }
+        
+        
         // function to format the file size in more readable way with units
         public function format_bytes($bytes, $precision = 2){
             $units = array('B', 'KB', 'MB', 'GB', 'TB');

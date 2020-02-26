@@ -53,14 +53,10 @@ function is_post_empty(){
 }
 
 // --- check password ---
-function check_post_password($obj_password){
-    
-    // check if post empty
-    if(empty($_POST['password']))
-        return true;
+function check_post_password($obj_password_hash){
     
     // updating the password
-    if($obj_password == $_POST['password']){
+    if(password_verify($_POST['password'], $obj_password_hash)){
 
         //check the new password and the confirmation
         if($_POST['new_password'] === $_POST['confirm_password']){
@@ -85,13 +81,24 @@ function set_user_role($user_id, $user_role){
         // save the user new infos, save() is from the DB_object class
         $user->save();
     }
+    
+    redirect("users.php");
 }
 
 // ------ set new photo status function ------
 function set_photo_status($photo_id, $photo_status){
     
+    global $session; 
     // find user by id
     $photo = Photo::find_byID($photo_id);
+    
+    // check if photo's properties are specified in case we wanna publish the photo
+    if($photo->is_property_empty() && $photo_status == "published"){
+        $session->message("Sorry, Can not publish uncomplete gallery photo!");
+        redirect("photos.php");
+        return;
+    }
+    
     if($photo){
         
         // set the new user role
@@ -100,6 +107,7 @@ function set_photo_status($photo_id, $photo_status){
         // save the user new infos, save() is from the DB_object class
         $photo->save();
     }
+    redirect("photos.php");
 }
 
 // ------ set new comment status function ------
@@ -115,9 +123,42 @@ function set_comment_status($comment_id, $comment_status){
         // save the comment new infos, save() is from the DB_object class
         $comment->save();
     }
+    redirect("comments.php");
 }
 
-// --- Registeration Form function ---
+
+/* 
+ --- Registeration Form function ---
+
+        *--- Description ---* 
+    
+    + checks:
+    |
+    |_  + check if post is submitted
+        |
+        |_ check if email is right formatted with our reg_expr
+            |
+            |_ if yes get the email data
+            |_ if no return error message
+        |
+        |_ check if username is used before
+            |
+            |_ if yes return error message
+        |
+        |_ check if any field is empty (by $_POST[''])
+            |
+            |_ if yes return error message
+        |
+        |_ check if the two password fields are equal
+            |
+            |_ if yes return error message
+        |
+        |_ check if every thing is right then set the password hash
+    
+    
+    -> return value: array of messages. 
+*/
+
 function registeration(){
     
     $check = true;
@@ -140,8 +181,8 @@ function registeration(){
         if(preg_match($reg_expr, trim($_POST['email'])))
             $properties['user_email'] = trim($_POST['email']);
         else{
-            $message = "Wrong Email!, plz write a right formatted email";
-            return;
+            $message[] = "Wrong Email!, plz write a right formatted email";
+            return $message;
         }
             
         
@@ -227,6 +268,10 @@ function login_form(){
 // Apply options on selected records function
 function apply_selected_options(){
     
+    // in case we are in comments_photo.php 
+    if(isset($_GET['id']))
+        $id = $_GET['id'];
+    
     // get the submitted form for selected check boxes
     if(isset($_POST['chkBoxArr'])){
         
@@ -241,29 +286,41 @@ function apply_selected_options(){
                 case 'published':
                 case 'draft':
                     set_photo_status($ValID, $bulkOption);
+                    redirect("photos.php");
                 break;
                 case 'admin':
                 case 'subscriber':
                     set_user_status($ValID, $bulkOption);
+                    redirect("users.php");
                 break;
                 case 'pinned':
                 case 'unpinned':
                     set_comment_status($ValID, $bulkOption);
+                    if($_GET['id'])
+                        redirect("comments_photo.php?id=$id");
+                    else
+                        redirect("comments.php");
                 break;
                 case 'delete_photo':
                     $photo = Photo::find_byID($photoValID);
                     if($photo)
                         $photo->delete_with_file();
+                    redirect("photos.php");
                 break;
                 case 'delete_user':
                     $user = Ucommentser::find_byID($ValID);
                     if($user)
                         $user->delete_with_file();
+                    redirect("users.php");
                 break;
                 case 'delete_comment':
                     $comment = Comment::find_byID($ValID);
                     if($comment)
                         $comment->delete();
+                    if($_GET['id'])
+                        redirect("comments_photo.php?id=$id");
+                    else
+                        redirect("comments.php");
                 break;
             } 
         }
@@ -357,7 +414,48 @@ function create_user(){
 }
 
 
-// update a user
+/* 
+        *--- update a user ---*
+         
+         *--- Description ---*
+        
+    + checks:
+    |
+    |_  + check $_POST['update'] if it is set and if it is not empty.
+        |
+        |_ check email reg_expr.
+            |
+            |_ if yes then set updated email.
+            |_ if no then set error message.
+        |
+        |_ check empty fields.
+            |
+            |_ if yes then we check if the empty fields are not the password fields.
+                |
+                |_ if the empty fields are not the password fields then return error message.
+        |
+        |_  + check if the password field is the right password of the user.
+            |
+            |_ if yes then check the new_password field.
+                |
+                |_ if yes then check the new password with confirm if equal.
+                    |
+                    |_ if yes then set the new password.
+                    |_ if not then return error message.
+                |
+                |_ check if photo is not uploaded properly.
+                    |
+                    |_ if yes then we unset the photo data.
+                |
+                |_ check if the user is updated properly.
+                    |
+                    |_ if yes then set success message and return any error messages if there is ones.
+                    |_ if no then check if nothing changed and then return error messages.
+            
+            |_ if no then 
+                    
+
+*/
 function update_user(){
     
     global $user, $message;
@@ -393,6 +491,7 @@ function update_user(){
             }
         }
         
+        // check the password field with the user password
         if(check_post_password($user->password_hash)){
             
             // it will only assigned if I really changed the password
@@ -462,14 +561,15 @@ function update_user(){
 // create a photo
 function create_photo(){
     
-    if(isset($_POST['submit'])){
+    // to be available for both one upload and multi upload files
+    if(isset($_POST['submit']) || isset($_FILES['file'])){
         
         // create photo object
         $photo = new Photo();
         $photo -> photo_title = trim($_POST['title']);
         $photo -> photo_caption = trim($_POST['caption']);
         $photo -> photo_description = strip_tags(trim($_POST['description']));
-        $photo -> set_file($_FILES['file_upload']);
+        $photo -> set_file($_FILES['file']);
         $photo -> photo_alternate_text = trim($_POST['alternate_text']);
         $photo -> photo_upload_date = date('Y-m-d H:i:s');
         $photo -> photo_status = "draft";
@@ -572,7 +672,10 @@ function create_comment(){
                 $properties['comment_body'] = trim($_POST['body']);
                 $properties['comment_date'] = date('Y-m-d H:i:s');
                 $properties['comment_status'] = "unpinned";
-                $properties['user_id'] = $_SESSION['user_id'];
+                
+                // in case the commenter is not a user
+                if(isset($_SESSION['user_id']))
+                    $properties['user_id'] = $_SESSION['user_id'];
 
                 // create comment object with the properties values
                 $new_comment = Comment::create_obj($properties);

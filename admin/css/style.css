@@ -1,11 +1,10 @@
 
-
 .admin-photo-thumbnail {
     width: 100px;
     border-radius: 5px;
 }
 
-.user_photo-thumbnail {
+.user_photo-thumbnail { /* should the name be edited */
     width: 200px;
     border-radius: 5px;
 }

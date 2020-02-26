@@ -1,14 +1,21 @@
   </div>
     <!-- /#wrapper -->
+   
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
-    <!-- javascript -->
+    <!-- javascript dropzone -->
+    <script src="js/dropzone.js"></script>
+   
+   <!-- javascript custome scripts -->
     <script src="js/scripts.js"></script>
    
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+    
+    
+    
     
     <!-- Pie Chart Script -->
     <script type="text/javascript">
@@ -44,23 +51,17 @@
       
       // Callback that draws the pie chart 2
       function drawChart_UserPhotos() {
-
         var data = google.visualization.arrayToDataTable([
-          
+          ['User admin', 'count photos'],
+          <? $admin_users = User::get_admin_users(); ?>
+          <? foreach($admin_users as $admin_user): ?>
           <? 
-            echo "['User admin', 'count photos'],";
-            $admin_users = User::get_admin_users(); 
-            foreach($admin_users as $admin_user){
-                $user_photos = Photo::find_photos_by_userID($admin_user->user_id);
-                $count_user_photos = count($user_photos);
-                
-                echo "[  $admin_user->username ,  $count_user_photos ],";
-            }
+            $user_photos = Photo::find_photos_by_userID($admin_user->user_id);
+            $count_user_photos = count($user_photos);
           ?>
-//                    join(',',  "[  $admin_user->username ,  $count_user_photos ]")
-          
-          
-         
+          ['<? echo $admin_user->username; ?>', <? echo $count_user_photos; ?> ],
+          <? endforeach; ?>
+          ['', 0]
         ]);
 
         var options = {
@@ -120,3 +121,4 @@
 </body>
 
 </html>
+

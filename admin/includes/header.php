@@ -13,6 +13,9 @@
     <meta name="author" content="">
 
     <title>Gallery System</title>
+    
+    <!-- Custom CSS for Dropzone css-->
+    <link href="css/dropzone.css" rel="stylesheet">
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -42,6 +45,10 @@
     
     <!-- Pie Chart -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
+    <!-- Dropzone js -->
+    <script src=""></script>
+    
     
 
 </head>

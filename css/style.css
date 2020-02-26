@@ -1,3 +1,11 @@
+
+/* ------ Photo page for comment photo  ------ */
+.comment-photo-thumbnail {
+    width: 50px; !important
+    border-radius: 5px;
+}
+
+
 .home-img {
     width: 250px;
     height: 150px !important; /* to inforce the css here over bootstrap css */

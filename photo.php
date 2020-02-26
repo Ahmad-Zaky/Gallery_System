@@ -101,20 +101,30 @@
                 <!-- Posted Comments -->
 
                 
-                
-<? foreach($comments as $comment) : ?>
-                
+<!-- get the photo comments -->     
+<? foreach($comments as $comment): ?>
                 <!-- Comment -->
                 <div class="media">
                     <a class="pull-left" href="#">
-                        <img class="media-object" src="http://placehold.it/64x64" alt="">
+                        
+                        <?
+                            $username = "";
+                            // get the user photo
+                            if($comment->user_id):
+                                $user = User::find_byID($comment->user_id);
+                                $username = $user->username;
+                        ?>
+                        <img class="comment-photo-thumbnail media-object" src="admin/<? echo $user->photo_path(); ?>" alt="">
+                        <? else: ?>
+                        <img class="comment-photo-thumbnail media-object" src="http://placehold.it/64x64" alt="">
+                        <? endif; ?>
                     </a>
                     <div class="media-body">
                         <h4 class="media-heading"> 
                            
                            <? // Display username if signed in, Entered Name if not registered
-                            if($session->is_signedIn())
-                                echo $_SESSION['username'];
+                            if($username)
+                                echo $username;
                             else
                                 echo $comment->comment_author; 
                             ?>

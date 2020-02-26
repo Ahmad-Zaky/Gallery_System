@@ -7,7 +7,15 @@
                         <a href="users.php"><i class="fa fa-fw fa-users"></i> Users</a>
                     </li>
                     <li>
-                        <a href="upload.php"><i class="fa fa-fw fa-upload"></i> Upload</a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#posts_dropdown"><i class="fa fa-fw fa-upload"></i> Upload <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="posts_dropdown" class="collapse">
+                            <li>
+                                <a href="upload.php">Normal Upload</a>
+                            </li>
+                            <li>
+                                <a href="multi_uploads.php">Multi Uploads</a>
+                            </li>
+                        </ul> 
                     </li>
                     <li>
                         <a href="photos.php"><i class="fa fa-fw fa-image"></i> Photos</a>

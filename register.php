@@ -27,7 +27,7 @@
                                 // Display registeration errors
                                 if(!empty($messages))          
                                     foreach($messages as $msg)
-                                        echo $msg;
+                                        echo "<p class='bg-danger'>".$msg."</p>";
                             ?>
 
                     
@@ -93,6 +93,19 @@
 
 
 
+
+<!-- List of features -->
+
+    1. check empty fields.
+    2. check username with db so username will be unique for each user.
+    3. check password match with confirmation.
+    4. encrypt the password with Aragon2i algorithm.
+    5. using regular expression for email.
+    
+<!-- 
+
+
+-->
 
 <!-- List of features to add in future -->
 

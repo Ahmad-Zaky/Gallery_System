@@ -71,7 +71,7 @@
                                 <div class="form-group">
 
                                     <label for="description">Photo Upload</label>
-                                    <input type="file" name="file_upload" >
+                                    <input type="file" name="file" >
                                 </div>
 
                                 <div class="form-group">
@@ -79,13 +79,12 @@
                                     <input type="text" name="alternate_text" class="form-control">
                                 </div>
                                 <input class="btn btn-primary pull-right" type="submit" name="submit">
-
+ 
                             </form>
                         </div>
                     </div>
                 </div>
                 <!-- /.row -->
-
             </div>
             <!-- /.container-fluid -->
 

@@ -77,6 +77,11 @@
             
         }
         
+        // custome function to turn message to empty
+        public function set_msg_empty(){
+            $this->message = "";
+        }
+        
         // check at first begin of session obj decl. (__construct() function)
         private function check_msg(){
             
