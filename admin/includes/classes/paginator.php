@@ -1,6 +1,6 @@
 <?php 
 
-    class Paginator {
+    class Paginator implements Paginatorface{
         
         private $page;
         private $IPP; // IPP: Items Per Page
@@ -77,7 +77,7 @@
     TODO List:
     ----------
 
-    1. two instructors instead of one?
+    1. two constructors instead of one? (I don't think it is necessary)
     
     
 -->

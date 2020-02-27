@@ -189,7 +189,7 @@
 
     TODO List:
     
-        1. Add edit comment feature by creating the file with its functionality.
+        1. Add edit comment feature by creating the file with its functionality (may be by the normal user side at the photo.php)
 
 -->
                             <!-- DEPRECATED CODE -->

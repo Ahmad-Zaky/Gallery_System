@@ -94,7 +94,7 @@
 
 
 
-<!-- List of features -->
+<!--                          *--- List of features ---*
 
     1. check empty fields.
     2. check username with db so username will be unique for each user.

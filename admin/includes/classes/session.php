@@ -1,6 +1,6 @@
 <?php 
 
-    class Session{
+    class Session implements Sessionface{
         
         // --- Properties ---
         
@@ -77,7 +77,7 @@
             
         }
         
-        // custome function to turn message to empty
+        // custom function to turn message to empty
         public function set_msg_empty(){
             $this->message = "";
         }
@@ -116,8 +116,8 @@
     TODO List:
     ----------
     
-    1. Turn the properties to private and use set and get instead or superglobal $_SESSSION[''] variables
-    2. check again this feature in video "205. Creating Session Methods for Notifications in the Edit User Page Part # 1"
+    1. Turn the properties to private and use set and get instead or superglobal $_SESSSION[''] variables (DONE)
+    2. check again this feature in video "205. Creating Session Methods for Notifications in the Edit User Page Part # 1" (DONE)
 
 
 

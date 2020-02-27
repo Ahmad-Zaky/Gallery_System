@@ -10,7 +10,6 @@
                       
                       
                       
-                      
                         <div class="row">
                             <div class="col-lg-3 col-md-6">
                                 <div class="panel panel-primary">
@@ -152,9 +151,9 @@
     TODO List:
     ----------
     
-    1. Add More than one Pie chart one for each class.
-    2. try to position each div in the page so each row contains 2 charts max.
-    3. add the approved and unapproved feature to photos and so on for other classes.
+    1. Add More than one Pie chart one for each class. (DONE)
+    2. try to position each div in the page so each row contains 2 charts max.(DONE)
+    3. add the approved and unapproved feature to photos and so on for other classes.(DONE)
     
     
   

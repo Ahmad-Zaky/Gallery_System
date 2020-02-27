@@ -1,6 +1,6 @@
 <?php require_once("new_config.php");
 
-    class Database{
+    class Database implements Databaseface{
         
     // ------- Properties -------
         private static $instance = NULL;
@@ -25,7 +25,7 @@
         }
         
         
-        // create one object within the class (singleton)
+        // create one object within the class (singleton pattern)
         public static function get_instance(){
             if(!self::$instance)
                 self::$instance = new Database();
@@ -33,6 +33,7 @@
             return self::$instance;
         }
         
+        // return the db connection
         public function get_connection(){
             return $this->connection;
         }

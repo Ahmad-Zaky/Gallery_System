@@ -154,6 +154,8 @@ if(!empty($_GET['photo_id']) && isset($_GET['photo_id'])){
     TODO List:
     ----------
     
-        1. Add a feature to show only the photos related to the login admin user only and add role for the users to do that and add the extra field in db to help us doing that and add a function in the user class to get the photos related to that admin user and make sure you add the new fields names in the class specially db_table_fields.
+        1. Add a feature to show only the photos related to the login admin user only and add role for the users to do that and add the extra field in db to help us doing that and add a function in the user class to get the photos related to that admin user and make sure you add the new fields names in the class specially db_table_fields. (DONE partialy)
+        
+        2. I can make super_admin to have all functionalities (related to nr. 1)
 
 -->

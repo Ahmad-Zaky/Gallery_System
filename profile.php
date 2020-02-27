@@ -158,10 +158,9 @@
                             <!-- List of features -->
 <!-- 
 
-    1. get user infos using session.
-    2. format the date and time in a readable way
-    3. keep user info after submitting the updates
-    4.
+    1. get user infos using session.(DONE)
+    2. format the date and time in a readable way. (DONE)
+    3. keep user info after submitting the updates. (DONE)
 
 -->
 <!-- List of features to add in future -->

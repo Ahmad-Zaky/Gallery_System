@@ -18,7 +18,7 @@
     $message = "";
     $page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
     $IPP = 4; // IPP: Items Per Page its 4 for now should be increased to ~ 10 
-    $ITC = Photo::approved_counter($id); //ITC: Items Total Count
+    $ITC = Photo::custom_counter_approved($id); //ITC: Items Total Count
     $paginator = new Paginator($page, $IPP, $ITC);
     
     // a SQL query to get page photos related to our $paginator object 
@@ -81,11 +81,11 @@
     TODO List:
     ----------
     
-    1. Add the photos posts with content wrapper and Categories and Search with tags features.
-    2. Try to add user tracking instead of views by refresh.
-    3. We should prevent admin or user from adding photo without the photo it self.
+    1. Add the photos posts with content wrapper and Categories and Search with tags features. (DONE DIFFERENTLY)
+    2. Try to add user tracking instead of views by refresh. (TAKING IT ONLINE FIRST)
+    3. We should prevent admin or user from adding photo without the photo it self.(DONE DIFFERENTLY)
     4. make a limit for the page number look up Google MyPagina class.
-    5. Add login and profile and hide admin and add edit photo and hide it from not admin usr.
+    5. Add login and profile and hide admin and add edit photo and hide it from not admin usr. (DONE)
     
 -->
                    

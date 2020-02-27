@@ -1,6 +1,6 @@
 <?php 
 
-    class Comment extends DB_object{
+    class Comment extends DB_object implements Commentface{
     
         /* ----- PROPERTIES ----- */
         
@@ -52,9 +52,11 @@
         } 
         
         
-                     
+            /* ----- ABSTRACT METHODS ----*/
+
+        // could we inherit static abstract methods ?
         // get Nr. of pinned comments
-        public static function pinned_counter(){
+        public static function counter_approved(){
             
             global $db;
             
@@ -71,7 +73,7 @@
         
                      
         // get Nr. of unpinned comments
-        public static function unpinned_counter(){
+        public static function counter_unapproved(){
             
             global $db;
             
@@ -85,7 +87,7 @@
             return !empty($row) ? $row[0] : false;
             
         }
-        
+            /* ----- ABSTRACT METHODS ----*/
     }
 ?>
 
@@ -98,7 +100,7 @@
     ----------
     
         1. try make generic create() function using array and properties_exist()
-           and put it in db_object class.
+           and put it in db_object class. (DONE)
 -->
 
                                

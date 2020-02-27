@@ -139,7 +139,7 @@
     TODO List:
     ----------
    
-    1. add the password functionality with hash_password encryption.
+    1. add the password functionality with hash_password encryption. (DONE)
      
 -->
 

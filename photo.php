@@ -156,16 +156,16 @@
     TODO List:
     ----------
        
-    1. pull user information and fill the comment part with the name and photo or placholder.   
+    1. pull user information and fill the comment part with the name and photo or placholder.(DONE)
     2. add nested replay feature.
     3. make notification feature for replies at least.
-    4. take features from the last CMS project course.
-    5. Add the role feature for Authentication and Authorization.
-    5. Add the admin option into the nav bar if the login is an admin user.
-    6. Add also an Edit photo link in the nav bar for the admin user also.
-    7. Add author to photos and make user role for that also.
-    8. put date for photos and comments uploads.
+    4. take features from the last CMS project course.(DONE)
+    5. Add the role feature for Authentication and Authorization.(DONE)
+    5. Add the admin option into the nav bar if the login is an admin user.(DONE)
+    6. Add also an Edit photo link in the nav bar for the admin user also.(DONE)
+    7. Add author to photos and make user role for that also.(DONE)
+    8. put date for photos and comments uploads.(DONE)
     9. Add edit comment for users online.
-    10. Change the date format to be like this 'August 24, 2013 at 9:00 PM'
+    10. Change the date format to be like this 'August 24, 2013 at 9:00 PM'(DONE)
      
 -->

@@ -63,7 +63,7 @@
     TODO List:                     
     ----------
     
-        1. Why the wrong usr or pwd does not show the first time but after the second time.
+        1. Why the wrong usr or pwd does not show the first time but after the second time. (DONE)
                                                                                                          
 -->
                                    

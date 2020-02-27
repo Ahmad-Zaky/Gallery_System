@@ -1,6 +1,6 @@
  <?php 
 
-    class DB_object{
+abstract class DB_object{
         
         
         /* ----- PROPERTIES -----*/
@@ -383,7 +383,16 @@
             return !empty($row) ? $row[0] : false; 
             
         }
+                        /* ----- ABSTRACT METHODS ----*/
+    
+    
+        // abstract methods counter approved and unapproved
+        abstract public static function counter_approved();
+    
+        abstract public static function counter_unapproved();
         
+                        /* ----- /.ABSTRACT METHODS ----*/
+
         public function compare_properties($obj){
             
             $properties = array();
@@ -465,7 +474,7 @@
     TODO List:
     ----------
     
-        1. change save_with_file() and save() function to upload file and save.
+        1. change save_with_file() and save() function to upload file and save. (DONE)
     
 -->
 

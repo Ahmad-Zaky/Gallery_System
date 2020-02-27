@@ -1,6 +1,6 @@
 <?php 
 
-    class User extends DB_object{
+    class User extends DB_object implements Userface{
         
     // ------- Properties -------
         
@@ -104,6 +104,7 @@
             return $rows_cnt;
         }
         
+        // get all admin users from DB
         public static function get_admin_users(){
             
             global $db;
@@ -114,10 +115,14 @@
             $result = self::makeQuery($query);
             
             return $result;
-        }   
+        }
+        
+        
+                /* ----- ABSTRACT METHODS ----*/
+
         
         // get Nr. of admin users
-        public static function admin_counter(){
+        public static function counter_approved(){
             
             global $db;
             
@@ -134,7 +139,7 @@
         
                    
         // get Nr. of subscriber users
-        public static function subscriber_counter(){
+        public static function counter_unapproved(){
             
             global $db;
             
@@ -148,6 +153,9 @@
             return !empty($row) ? $row[0] : false;
             
         }
+        
+                /* ----- /.ABSTRACT METHODS ----*/
+
     }
 
 ?>

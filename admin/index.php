@@ -40,7 +40,7 @@
     TODO List:
     ----------
         
-        1. add the pie Chart functionality.
+        1. add the pie Chart functionality. (DONE)
 
 
 -->

@@ -1,6 +1,6 @@
 <?php 
 
-    class Photo extends DB_object{
+    class Photo extends DB_object implements Photoface{
     
         /* ----- PROPERTIES ----- */
         
@@ -72,7 +72,7 @@
         }
         
         // get approved photos count and user photos if specified
-        public static function approved_counter($user_id = 0){
+        public static function custom_counter_approved($user_id = 0){
             
             global $db;
             
@@ -90,25 +90,11 @@
             return !empty($row) ? $row[0] : false;
         }
         
-        // get Nr. of draft photos
-        public static function draft_counter(){
-            
-            global $db;
-            
-            $query = "SELECT COUNT(*) FROM photos ";
-            $query .= "WHERE (photo_status = 'draft') ";
-           
-            $result = $db->query($query);
-            
-            $row = $result->fetch_array(MYSQLI_NUM);
-            
-            return !empty($row) ? $row[0] : false;
-            
-        }
         
-                
+                /* ----- ABSTRACT METHODS ----*/
+
         // get Nr. of published photos
-        public static function published_counter(){
+        public static function counter_approved(){
             
             global $db;
             
@@ -123,6 +109,24 @@
             
         }
                             
+        // get Nr. of draft photos
+        public static function counter_unapproved(){
+            
+            global $db;
+            
+            $query = "SELECT COUNT(*) FROM photos ";
+            $query .= "WHERE (photo_status = 'draft') ";
+           
+            $result = $db->query($query);
+            
+            $row = $result->fetch_array(MYSQLI_NUM);
+            
+            return !empty($row) ? $row[0] : false;
+            
+        }
+                /* ----- ABSTRACT METHODS ----*/
+
+        
                             /* ----- Page photos ----- */
 
         // get the page photos from DB

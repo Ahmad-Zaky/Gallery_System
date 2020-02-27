@@ -706,7 +706,7 @@ function create_comment(){
 
     1. When I change nothing and click upload it will update successfully but
        if I hit the botton again and also without changing anything then it will
-       output the msg: Nothing changed to UPDATE. why NOT from the first time?
+       output the msg: Nothing changed to UPDATE. why NOT from the first time? (DONE)
 -->
         
         

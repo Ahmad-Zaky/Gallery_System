@@ -34,8 +34,8 @@
 
         var data = google.visualization.arrayToDataTable([
           ['photo_status', 'Photo Count'],
-          ['draft',<? echo Photo::draft_counter(); ?>],
-          ['published',<? echo Photo::published_counter();?>]
+          ['draft',<? echo Photo::counter_approved(); ?>],
+          ['published',<? echo Photo::counter_unapproved();?>]
         ]);
 
         var options = {
@@ -81,8 +81,8 @@
 
         var data = google.visualization.arrayToDataTable([
           ['User_role', 'User Count'],
-          ['admin',<? echo User::admin_counter() ?>],
-          ['subscriber',<? echo User::subscriber_counter() ?>]
+          ['admin',<? echo User::counter_approved() ?>],
+          ['subscriber',<? echo User::counter_unapproved() ?>]
         ]);
 
         var options = {
@@ -102,8 +102,8 @@
 
         var data = google.visualization.arrayToDataTable([
           ['Comment Status', 'Comment Count'],
-          ['pinned',<? echo Comment::pinned_counter() ?>],
-          ['unpinned',<? echo Comment::unpinned_counter() ?>]
+          ['pinned',<? echo Comment::counter_approved() ?>],
+          ['unpinned',<? echo Comment::counter_unapproved() ?>]
         ]);
 
         var options = {
