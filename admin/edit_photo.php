@@ -32,7 +32,7 @@
             $message = "Photo not found! " . $photos_lnk;
         
         // taking the updated data from Form to DB
-        update_photo();
+        Utilities_CRUD::update_photo();
         
         // add view photos link
         if(isset($_POST['update']))
@@ -118,7 +118,7 @@
                                     <select name="status" id="">
                                         
                                     <!-- Arrange the options depend on the photo_status -->
-                                    <? if($photo_status == 'draft'):?>
+                                    <? if($status == 'draft'):?>
                                         
                                         <option value='draft'>Draft</option>
                                         <option value='published'>Published</option>

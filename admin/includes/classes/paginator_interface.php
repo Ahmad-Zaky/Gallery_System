@@ -1,6 +1,6 @@
 <?php 
 
-    interface Paginatorface{
+    interface Paginator_interface{
         
         // Next and Previous functions 
         public function Next();

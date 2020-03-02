@@ -7,7 +7,7 @@
     $message = "";
     $photos_lnk = " <a href='photos.php'>View photos</a>";
     
-    create_photo();
+    Utilities_CRUD::create_photo();
 
     // try to use the post-redirect-get pattern
     // !!! wrong way should be improved the Get msg !!! 

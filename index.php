@@ -86,6 +86,7 @@
     3. We should prevent admin or user from adding photo without the photo it self.(DONE DIFFERENTLY)
     4. make a limit for the page number look up Google MyPagina class.
     5. Add login and profile and hide admin and add edit photo and hide it from not admin usr. (DONE)
+    6. change all short php tags < ? ? > into < ?= ?>
     
 -->
                    

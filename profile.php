@@ -28,7 +28,7 @@
         $user_register_date = format_date_time($user->user_register_date);
         
         // taking the updated data from Form to DB
-        update_user();
+        Utilities_CRUD::update_user();
         
         // add view users link
 

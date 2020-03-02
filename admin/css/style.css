@@ -1,6 +1,6 @@
 
 .admin-photo-thumbnail {
-    width: 100px;
+    width: 110px;
     border-radius: 5px;
 }
 
@@ -9,7 +9,13 @@
     border-radius: 5px;
 }
 
-                        /* ------ login.php ------ */
+
+
+
+        /* ------ login.php ------ */
+
+
+
 
 #login-form {
     background-color: white;
@@ -23,7 +29,7 @@
 
 
 
-                        /* ------ edit-photo.php ------*/
+            /* ------ edit-photo.php ------*/
 
 
 

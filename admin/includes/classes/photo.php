@@ -1,6 +1,6 @@
 <?php 
 
-    class Photo extends DB_object implements Photoface{
+    class Photo extends DB_object implements Photo_interface{
     
         /* ----- PROPERTIES ----- */
         

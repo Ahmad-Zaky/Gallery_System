@@ -41,6 +41,7 @@
     ----------
         
         1. add the pie Chart functionality. (DONE)
+        2. add to each function in php Classes and functions where we did use it file and line.
 
 
 -->

@@ -1,6 +1,6 @@
 <?php 
 
-    class Comment extends DB_object implements Commentface{
+    class Comment extends DB_object implements Comment_interface{
     
         /* ----- PROPERTIES ----- */
         

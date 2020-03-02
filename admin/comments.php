@@ -62,6 +62,7 @@
                                         <th>ID</th>
                                         <th>comment</th>
                                         <th>Photo</th>
+                                        <th>Author</th>
                                         <th>User</th>
                                         <th>Status</th>
                                         <th>pin</th>
@@ -101,12 +102,20 @@
     
     foreach($comments as $comment) :
         
+        $usrname = "";
+                                
         // get object infos
         $id = $comment -> comment_id;
         $author = $comment -> comment_author;
         $body = $comment -> comment_body;
         $status = $comment -> comment_status;
-                                
+        
+        // get User Id if there is one and get the username of this user_id
+        if($comment->user_id)
+            $usrname = User::find_byID($comment->user_id) -> username;
+
+        
+        
         // get photo for that comment
         $photo_id = $comment -> photo_id;
         
@@ -148,6 +157,7 @@
                                     <!-- /.The Comment Photo -->
                                     
                                     <td> <? echo $author; ?> </td>
+                                    <td> <? echo $usrname; ?> </td>
                                     <td> <? echo $status; ?> </td>
                                     <td><a href="comments.php?pin=<? echo $id ?>">Pin</a></td>
                                     <td><a href="comments.php?unpin=<? echo $id ?>">Unpin</a></td>
@@ -196,13 +206,19 @@
                                            
 <!--    
 
-
     -> Line : 84
     ------------
     
     <a href="edit_comment.php?comment_id=<? //echo $id; ?>">Edit</a>
 
 
+    -> Line : 117
+    -------------
+    
+                
+//            // get username
+//            if($usr)
+//                $usrname = $usr->username;
 
 
 -->

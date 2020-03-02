@@ -105,12 +105,15 @@
 
                         </div> 
                         <!--First Row-->
-                      
+                        
                         <!-- Pie Chart -->
                         <!--Table and divs that hold the pie charts-->
                             <div class="row">
+                            
+                            
                                 <table class="columns">
                                     <tr>
+                                       
                                         <td>
                                             <div  id="piechart_Photos" style="border: 1px "></div>
                                         </td>

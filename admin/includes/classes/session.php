@@ -1,6 +1,6 @@
 <?php 
 
-    class Session implements Sessionface{
+    class Session implements Session_interface{
         
         // --- Properties ---
         

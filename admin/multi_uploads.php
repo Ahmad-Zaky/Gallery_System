@@ -1,7 +1,7 @@
 <?php include("includes/header.php"); ?>
 <?php if(!$session->is_signedIn()) redirect("login.php"); ?>
 <?php if($_SESSION['user_role'] == "subscriber") redirect("../index.php");?>
-<? create_photo(); ?>
+<? Utilities_CRUD::create_photo(); ?>
 
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">

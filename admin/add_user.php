@@ -10,7 +10,7 @@
        
     // check first if all fields are filled
     if(!is_post_empty())
-        create_user(); 
+        Utilities_CRUD::create_user(); 
     else 
         $message = "One or more fields are empty!"; 
     

@@ -1,6 +1,6 @@
 <?php 
 
-    class Paginator implements Paginatorface{
+    class Paginator implements Paginator_interface{
         
         private $page;
         private $IPP; // IPP: Items Per Page

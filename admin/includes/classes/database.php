@@ -1,6 +1,6 @@
-<?php require_once("new_config.php");
+<?php //require_once("new_config.php");
 
-    class Database implements Databaseface{
+    class Database implements Database_interface{
         
     // ------- Properties -------
         private static $instance = NULL;

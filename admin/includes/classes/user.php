@@ -1,6 +1,6 @@
 <?php 
 
-    class User extends DB_object implements Userface{
+    class User extends DB_object implements User_interface{
         
     // ------- Properties -------
         
@@ -63,7 +63,7 @@
             $query = "SELECT * FROM ". self::$db_table ." WHERE ";
             $query .= "username = '$username'";
             
-            $user_found = self::makeQuery($query);
+            $user_found = User::makeQuery($query);
             
             $user = array_shift($user_found);
             
@@ -88,22 +88,7 @@
             return false;
         }
         
-        // check if there is user with the same username 
-        public static function find_byUsername($username){
-            
-            // check the nr. of rows retrieved from the query if 0 then no similar username
-            // if 1 or more then ther is similar username
-            global $db;
-            
-            $query = "SELECT * FROM users WHERE ";
-            $query .= "username = '$username'";
-
-            $reuslt = $db->query($query);
-            $rows_cnt = $reuslt->num_rows;
-            
-            return $rows_cnt;
-        }
-        
+          
         // get all admin users from DB
         public static function get_admin_users(){
             
@@ -112,12 +97,11 @@
             $query = "SELECT * FROM users ";
             $query .= "WHERE user_role = 'admin'";
            
-            $result = self::makeQuery($query);
+            $result = User::makeQuery($query);
             
             return $result;
         }
-        
-        
+            
                 /* ----- ABSTRACT METHODS ----*/
 
         
@@ -156,6 +140,8 @@
         
                 /* ----- /.ABSTRACT METHODS ----*/
 
+        
+    
     }
 
 ?>

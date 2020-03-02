@@ -1,6 +1,6 @@
 <?php 
 
-    interface Databaseface{
+    interface Database_interface{
         
         // Establish a DB Connection using mysqli object
         public function open_connection_db();

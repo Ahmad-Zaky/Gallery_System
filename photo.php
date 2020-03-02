@@ -19,7 +19,7 @@
     $comments = Comment::find_comm_by_photoID($_GET['id']); 
     
     // creating the submitted comment
-    create_comment();
+    Utilities_crud::create_comment();
 
 
 ?>

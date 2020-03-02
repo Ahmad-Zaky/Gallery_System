@@ -54,7 +54,7 @@
 
     $photos = Photo::find_photos_by_userID($_SESSION['user_id']);
     
-    foreach($photos as $photo) :
+    foreach($photos as $photo):
         
         // get object infos
         $id = $photo -> photo_id;

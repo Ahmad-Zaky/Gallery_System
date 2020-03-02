@@ -1,6 +1,6 @@
 <?php 
     
-    interface Photoface{
+    interface Photo_interface{
         
         // get photo username function
         public function find_photo_username();

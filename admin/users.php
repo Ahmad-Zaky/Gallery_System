@@ -136,7 +136,7 @@
                                             
                                             
                                             <a href="edit_user.php?user_id=<? echo $id; ?>">Edit</a>
-                                            <a href="#">View</a>
+                                            <a href="profile.php">View</a>
                                         </div>
                                     </td>
                                     
@@ -144,7 +144,7 @@
                                     <td> <? echo $firstname; ?> </td>
                                     <td> <? echo $secondname; ?> </td>
                                     <td> <? echo $user_email; ?> </td>
-                                    <td> <? echo $user_register_date; ?> </td>
+                                    <td> <? echo format_date_time($user_register_date); ?> </td>
                                     <td> <? echo $user_role; ?> </td>
                                     <td><a href="users.php?admin=<? echo $id ?>">Admin</a></td>
                                     <td><a href="users.php?subscriber=<? echo $id ?>">Subscriber</a></td>

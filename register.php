@@ -22,7 +22,7 @@
                            
                            
                             <?  // get registeration success or error messages
-                                $messages = registeration();
+                                $messages = Utilities_user::registeration();
                                 
                                 // Display registeration errors
                                 if(!empty($messages))          
