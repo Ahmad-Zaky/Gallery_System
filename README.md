@@ -95,7 +95,35 @@
             * They help me to iterate through each class table fields by its table name and execute genric functions declared at the parent class.
             
             Example:  
-            ![properties and clean](/images/properties_clean.jpg)
+            ![properties and clean](/images/properties_clean.jpg)  
+            ```php
+            
+            // get class properties
+        protected function properties(){
+            
+            $properties = array();
+            
+            foreach(static::$db_table_fields as $table_field){
+                if(property_exists($this, $table_field)){
+                    $properties[$table_field] = $this->$table_field;
+                }
+            }
+            return $properties;
+        }
+        
+        // get class properties after escaping the string 
+        protected function clean_properties(){
+            
+            global $db;
+            $clean_properties = array();
+            
+            foreach($this->properties() as $key => $value){
+                $clean_properties[$key] = $db->escape_string($value);
+            }
+            return $clean_properties;
+        }
+            
+            ```
 
             
 
