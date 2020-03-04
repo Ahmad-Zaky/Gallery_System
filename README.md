@@ -83,7 +83,7 @@
 
             * Here I refacored a lot of functions to be generic and usable for all my table classes like CRUD functions and more (create_obj, properties, clean_properties, ... etc)
             
-            Example:
+            Example:  
             ![create_object](/images/create_object.jpg)
 
             * I also used an array in each class to hold the table fields names   
@@ -94,14 +94,14 @@
 
             * They help me to iterate through each class table fields by its table name and execute genric functions declared at the parent class.
             
-            Example:
+            Example:  
             ![properties and clean](/images/properties_clean.jpg)
 
             
 
     * Paginator class
 
-        - Here I created a class to control the pagination feature
+        - Here I created a class to control the pagination feature  
         ![paginator interface](/images/paginator_interface.jpg)
 
     * Utilities classes
@@ -110,10 +110,10 @@
 
         - Examples:  
             
-            * CRUD Utilities which handles the crud requests comes from the user.
+            * CRUD Utilities which handles the crud requests comes from the user.  
             ![utilities crud](/images/utilities_crud.jpg)
 
-            * User Utilities which handles functionalities related to user.
+            * User Utilities which handles functionalities related to user.  
             ![utilities user](/images/utilities_user.jpg)
 
 ### Front end
