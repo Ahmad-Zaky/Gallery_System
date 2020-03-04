@@ -288,15 +288,15 @@
 
 > Here you will find the php functionalities related to the view.   
 
-* __User side___
+* __User side__
 
-    - Home page `index.php`
+    - **Home page** `index.php`
     
         1. I added the photos stored in the server and have records in the DB in a fixed size using pages.
         2. The pages are numbers and Next, Previous Next button disappears at the last page and previous button disappears at the first page.
         3. The top nav bar has links show up based on the login state for example if I am a new user the links will be `login` and `register` if I did register as a regular user I will get `logout`, and `Profile` links, and if I did login as admin user firstly I will be redirected to the __Dashboard__ but if I go to __Home Page__ I will find `Admin`, and `logout` links. 
     
-    - Photo page `photo.php`
+    - **Photo page** `photo.php`
         
         1. I will fetch the photo from th DB using its ID.
         2. show Photo information and change the time to a readable Date time using `formate_date_time($date_time)`
@@ -325,7 +325,7 @@
         ```
         
         3. if I am logged in the name textbox will disappear and you will see your username instead.
-    - Reigester Page `register.php`
+    - **Reigester Page** `register.php`
         
         1. check empty fields.
         2. check username with db so username will be unique for each user.
@@ -333,7 +333,7 @@
         4. encrypt the password with Aragon2i algorithm online I am using a nother algorithm.
         5. using regular expression for email.
         
-    - Profile Page `profile.php`
+    - **Profile Page** `profile.php`
     
         1. It shows the subscriber profile to edit his own profile
         2. check empty fields.
@@ -346,9 +346,70 @@
         
 * __Admin side__
 
+    - **Dashboard** `index.php`
     
+        1. Show the Nr. of my gallery system classes like how many photos, users, comments I have, and nr of views based on the refreshing of the page.
+        2. Pie charts show the difference between the approved and unapproved for (photos, users, comments).
+        3. There is also a Pie chart which shows the number of photos related to the admin user who did upload these photos.
+    - **Users Page** `users.php`
+    
+        1. There is selected options to select all or some and applay some functionalities on all selected users like change user role or delete them.
+        2. Each user has a link for delete except the logged in user I prevented him fromdeleting him self.
+        3. Each user without a photo I add a placeholder image instead.
+        4. if I wanna edit or add the user I will have the same validation found in registeration Form page.
+        5. if I edit a user It will except the password fields from checking if empty.
+       
+    - **Upload Dropdown**  
+    
+        - **Normal Upload** `upload.php`
+        
+            1. Here I allow to add empty photo but it will not be published untill it is completed.
+        
+        - **Multi Upload** `multi_upload.php
+        
+            1. Here I used online API called Dropzone to allow multiple photo uploads.
 
+    - **Photos Page** `photos.php`
+    
+        1. beside the functionalities which are same as users page here the file size is been changed to be more readable.
+        
+        ```php
+        // function to format the file size in more readable way with units
+        public function format_bytes($bytes, $precision = 2){
+            $units = array('B', 'KB', 'MB', 'GB', 'TB');
 
+            // in case negative input
+            $bytes = max($bytes, 0);
+
+            // get the power which indicates one of the units above
+            $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+
+            // in case the unit is larger than 'TB'
+            $pow = min($pow, count($units) - 1);
+
+            // convert bytes to its closest unit
+            $bytes /= (1 << (10 * $pow)); // bit wise method
+
+            return round($bytes, $precision) . ' ' . $units[$pow];
+        }
+        ```
+        2. I created a link for comments which take you to a file with the comments related to this photo.
+    
+    - **My Photos** `my_photos.php`
+        
+        * here I group all the registered admin photos
+        
+    - **Edit Photo** `edit_photo.php`
+    
+        1. Here I did add a popup window when you click on the photo which show you all the photos uploaded on the system and I can pick any one of them and it will load me the edit photo page for that picked photo.
+        2. I added a side bar for meta data which can be droped up and down using `Javascript`
+
+    - **Comments Page** `comments.php`
+    
+        1. Here you find the comment and a photo where the comment was posted.
+        2. I have 2 fields of users one for the commenter who is not registered `Author` and the other is for registered commenters `User`.
+        
+        
 ### Front end
 
 > I used here some Javascript and JQuery to improve my admin side view and the practicality of the Project and I also used CSS and Bootstrap to customize the view of the project.
