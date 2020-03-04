@@ -286,7 +286,7 @@
 
 ### Back end
 
-> Here you will find the php functionalities related to the view 
+> Here you will find the php functionalities related to the view.   
 
 * __User side___
 
