@@ -69,13 +69,71 @@
 
         - Here I did use a Design pattern called singleton which means that the class can only create one object instance from it self and any other object created after the first one is just a reference to the first created object and it is useful in some cases when I only need one instance and here for our database connection we need only one connection to one database.
 
-        - You can see the class feature functions from its interface  
-        ![database interface](/images/database_interface.jpg)
+        - You can see the class feature functions from its interface.  
+        
+        ```php
+       
+       
+          interface Database_interface{
 
+            // Establish a DB Connection using mysqli object
+            public function open_connection_db();
+
+            // create one object within the class (singleton pattern)
+            public static function get_instance();
+
+            // return the db connection
+            public function get_connection();
+
+            // Making a Query
+            public function query($sql);
+
+            // escaping sql strings
+            public function escape_string($string);
+
+            // getting the already inserted id
+            public function inserted_id();
+
+            // getting affected rows from last operation
+            public function affected_query();
+        }
+
+       
+        ```
+        
+        
+        
     * Session class
         
         - It is responsible for tracking loged in users and manage there roles.  
-            ![session interface](/images/session_interface.jpg)
+       
+        ```php
+        
+
+        interface Session_interface{
+
+            // get the session sign_is status
+            public function is_signedIn();
+
+            // set the first user login session by passing its object
+            public function login($user);
+
+            // unset the session and object properties to log out
+            public function logout();
+
+            // get a message and set a message if there is not 
+            public function message($msg);
+
+            // custom function to turn message to empty
+            public function set_msg_empty();
+
+            // check views by refreshing
+            public function views_counter();
+
+        }
+
+        
+        ```
 
     * DB_object class
         
@@ -84,7 +142,34 @@
             * Here I refacored a lot of functions to be generic and usable for all my table classes like CRUD functions and more (create_obj, properties, clean_properties, ... etc)
             
             Example:  
-            ![create_object](/images/create_object.jpg)
+            
+            ```php
+            
+            // create a new object
+            public static function create_obj($properties){
+
+
+                if(isset($properties) && !empty($properties)){
+
+                    // create a new object
+                    $called_class = get_called_class();
+                    $new_obj = new $called_class;
+
+                    // loop in class properties
+                    foreach($properties as $property => $value){
+
+                        // check each $property if exists
+                        if($new_obj->has_attribute($property)){
+                            $new_obj->$property = $value;
+                        }else
+                            return false;
+                    }
+                    return $new_obj;
+                }
+                return false;
+            }
+            
+            ```
 
             * I also used an array in each class to hold the table fields names   
             `$db_table_fields = array( /* table fields name */);`
@@ -95,7 +180,7 @@
             * They help me to iterate through each class table fields by its table name and execute genric functions declared at the parent class.
             
             Example:  
-            ![properties and clean](/images/properties_clean.jpg)  
+            
             ```php
             
             // get class properties
@@ -129,8 +214,32 @@
 
     * Paginator class
 
-        - Here I created a class to control the pagination feature  
-        ![paginator interface](/images/paginator_interface.jpg)
+        - Here I created a class to control the pagination feature.  
+
+        ```php
+        
+           interface Paginator_interface{
+        
+                // Next and Previous functions 
+                public function Next();
+
+                public function Previous();
+
+                // Total Nr of Pages function
+                public function Total_pages();
+
+                // has_next() && has_previous() functions
+                public function has_next();
+
+                public function has_previous();
+
+                // get the next number of photos for the next page
+                public function offset();
+            }
+
+        
+        ```
+
 
     * Utilities classes
 
@@ -139,10 +248,39 @@
         - Examples:  
             
             * CRUD Utilities which handles the crud requests comes from the user.  
-            ![utilities crud](/images/utilities_crud.jpg)
+
+            ```php
+            
+                interface Utilities_CRUD_interface{
+        
+                public static function create_user();
+
+                public static function update_user();
+
+                public static function create_photo();
+
+                public static function update_photo();
+
+                public static function create_comment();
+            }
+            
+            
+            ```
 
             * User Utilities which handles functionalities related to user.  
-            ![utilities user](/images/utilities_user.jpg)
+            
+            ```php
+            
+              interface Utilities_user_interface{
+
+                public static function find_byUsername($username);
+
+                public static function registeration();
+
+                public static function login_form();
+            }
+            
+            ```
 
 ### Front end
 
