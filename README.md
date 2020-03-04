@@ -25,7 +25,7 @@
 ## Layout
 
 * The project layout   
-![Layout Image](\images\project_layout.jpg)
+![Layout Image](/images/project_layout.jpg)
   
   - Admin Section:  
   ![admin Section](\images\admin_section.jpg)  
