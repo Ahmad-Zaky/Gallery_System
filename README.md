@@ -48,8 +48,9 @@
 * Here I will categorise the features in which each feature will be referenced to its php file where I used it:
 
     - [Code structure](#code-structure)
-    - [Front end](#Front-end)
     - [Back end](#back-end)
+    - [Front end](#Front-end)
+ 
 
 ### Code structure
 
@@ -282,13 +283,152 @@
             
             ```
 
-### Front end
-
-> I used here some Javascript and JQuery to improve the view and the practicality of the Project
-
 
 ### Back end
 
+> Here you will find the php functionalities related to the view 
+
+* __User side___
+
+    - Home page `index.php`
+    
+        1. I added the photos stored in the server and have records in the DB in a fixed size using pages.
+        2. The pages are numbers and Next, Previous Next button disappears at the last page and previous button disappears at the first page.
+        3. The top nav bar has links show up based on the login state for example if I am a new user the links will be `login` and `register` if I did register as a regular user I will get `logout`, and `Profile` links, and if I did login as admin user firstly I will be redirected to the __Dashboard__ but if I go to __Home Page__ I will find `Admin`, and `logout` links. 
+    
+    - Photo page `photo.php`
+        
+        1. I will fetch the photo from th DB using its ID.
+        2. show Photo information and change the time to a readable Date time using `formate_date_time($date_time)`
+        
+        ```php
+        
+        // --- Format Date and Time ---
+        function format_date_time($date_time){
+
+            // Date 
+            $Day_nr = date('d', strtotime($date_time));
+            $Day_name = date('D', strtotime($date_time));
+            $Month = date('F', strtotime($date_time));
+            $Year = date('Y', strtotime($date_time));
+
+            // Time 
+            $hour = date('h', strtotime($date_time));
+            $minute = date('i', strtotime($date_time));
+            $_12Sys = date('A', strtotime($date_time));
+
+            // should look like this 'Tue 24 August, 2013 at 9:00 PM'
+            return "$Day_name $Day_nr $Month, $Year at $hour:$minute $_12Sys";
+
+        }
+        
+        ```
+        
+        3. if I am logged in the name textbox will disappear and you will see your username instead.
+    - Reigester Page `register.php`
+        
+        1. check empty fields.
+        2. check username with db so username will be unique for each user.
+        3. check password match with confirmation.
+        4. encrypt the password with Aragon2i algorithm online I am using a nother algorithm.
+        5. using regular expression for email.
+        
+    - Profile Page `profile.php`
+    
+        1. It shows the subscriber profile to edit his own profile
+        2. check empty fields.
+        3. check username with db so username will be unique for each user.
+        4. check password match with confirmation.
+        5. encrypt the password with Aragon2i algorithm online I am using a nother algorithm.
+        6. using regular expression for email.
+        7. show notifications if successfully changed or if nothing changed.
+        8. show error notifications if an error occured.
+        
+* __Admin side__
+
+    
+
+
+### Front end
+
+> I used here some Javascript and JQuery to improve my admin side view and the practicality of the Project and I also used CSS and Bootstrap to customize the view of the project.
+
+* __Javascript and JQuery Examples__
+
+    - select all checkBoxes option
+    
+    ```php
+    
+    // select all checkboxes option
+    $("#selectAllBoxes").click(function(event){
+        
+        if(this.checked){
+            $(".checkBoxes").each(function(){
+                this.checked = true;
+            });
+        }else{
+            $(".checkBoxes").each(function(){
+                this.checked = false;
+            });
+        }
+    });
+    
+    ```
+    
+    - Turn the sidebar up and down in `edit_photo.php` file
+    
+    ```php
+    
+    // in edit Photo turn the sidebar up and down
+    $(".info-box-header").click(function(){
+        
+        $(".box-inner").slideToggle("fast");
+        $("#toggle").toggleClass("glyphicon-menu-down glyphicon , glyphicon-menu-up glyphicon ");
+        
+        // Hint:
+        // -----
+        
+        // the spaces in toggleClass are very important before the ',' you should leave a white space and before the end also like you see above.
+        
+    });
+    
+    ```
+    
+    - Popup a confirmation window before delete in Admin side
+    
+    ```php
+    
+    // confirm delete link before execution
+    $(".delete-link").click(function(){
+       
+        return confirm("Confirm with 'ok' if want realy delete the Item.");
+    });
+    
+    // Text editor
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .catch( error => {
+            console.error( error );
+        });
+    
+    ```
+       
+* __Online APIs__
+
+    - Text editor API (CKEditor) used in `edit_photo.php`, `upload.php` and the script is placed in the `header.php` 
+    ```html
+
+    <!-- CKEditor -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js"></script>
+
+    ```
+    
+    - Pie chart Google API used in the __Dashboard__ at admin side
+    
+    ```html
+    <!-- Pie Chart -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    ```
 
 
 
