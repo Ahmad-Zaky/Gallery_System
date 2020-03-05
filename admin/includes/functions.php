@@ -332,7 +332,7 @@ spl_autoload_register('interfaceAutoLoad');
         
         
         
-        
+    
         // Check if the file is already exist
         if(!$photo -> upload_file()){ // to set the error array with any upload errors
         

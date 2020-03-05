@@ -25,15 +25,15 @@
 ## Layout
 
 * The project layout   
-![Layout Image](/images/project_layout.jpg)
+![Layout Image](\images\project_layout.jpg)
   
   - Admin Section:  
-  ![admin Section](/images/admin_section.jpg)  
+  ![admin Section](\images\admin_section.jpg)  
 
     * We can find here the Frontend directories like __css__, __js__, __fonts__, ... etc.
 
     * __includes__ directory   
-    ![admin includes](/images/admin_includes.jpg) 
+    ![admin includes](\images\admin_includes.jpg) 
     
         - which contains the Project classes, config file, init file, html front end files like header, footer, ... etc,
 
