@@ -286,7 +286,13 @@
                 $photo -> photo_caption = $_POST['caption'];
                 $photo -> photo_alternate_text = $_POST['alternate_text'];
                 $photo -> photo_description = $_POST['description'];
-                $photo -> photo_status = $_POST['status'];
+                
+                // set published only if all fields are'nt empty
+                if(is_post_empty())
+                    $photo -> photo_status = "draft";
+                else
+                    $photo -> photo_status = $_POST['status'];
+                
                 $photo -> set_file($_FILES['file_upload']);
 
                 // unset the file infos if the file is not uploaded properly 

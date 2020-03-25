@@ -64,8 +64,8 @@
 
         var data = google.visualization.arrayToDataTable([
           ['photo_status', 'Photo Count'],
-          ['draft',<? echo Photo::counter_approved(); ?>],
-          ['published',<? echo Photo::counter_unapproved();?>]
+          ['draft',<? echo Photo::counter_unapproved(); ?>],
+          ['published',<? echo Photo::counter_approved();?>]
         ]);
 
         var options = {

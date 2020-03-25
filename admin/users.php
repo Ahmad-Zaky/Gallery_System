@@ -47,7 +47,7 @@
                                <option value="delete_user">Delete</option>
                            </select>
                         </div>
-                        <input type="submit" name="submit" class="btn btn-success" value="Apply">
+                        <input type="submit" name="submit" onclick="confirm-changes" class="btn btn-success" value="Apply">
                         <!-- /.add some options list -->
 
 

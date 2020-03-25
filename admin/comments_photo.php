@@ -76,7 +76,7 @@
                                    <option value="delete_comment">Delete</option>
                                </select>
                             </div>
-                            <input type="submit" name="submit" class="btn btn-success" value="Apply">
+                            <input type="submit" name="submit" onclick="confirm-changes" class="btn btn-success" value="Apply">
                             <!-- /.add some options list -->
                             </div>
                         <!-- /.The Comment Photo -->

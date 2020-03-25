@@ -32,8 +32,9 @@ $(document).ready(function(){
     // confirm delete link before execution
     $(".delete-link").click(function(){
        
-        return confirm("Confirm with 'ok' if want realy delete the Item.");
+        return confirm("Confirm with 'ok' if want realy delete the Items.");
     });
+    
     
     // Text editor
     ClassicEditor
@@ -43,6 +44,11 @@ $(document).ready(function(){
         });
 });
 
+// confirm selected option on checkboxes execution
+function confirm_changes(){
+    
+    alert("Confirm with 'ok' if want to apply the changes.");
+}
                             
 
                         /* ------ Deprecated Code ------ */

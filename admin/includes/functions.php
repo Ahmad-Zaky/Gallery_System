@@ -172,7 +172,7 @@ function apply_selected_options(){
                         redirect("comments.php");
                 break;
                 case 'delete_photo':
-                    $photo = Photo::find_byID($photoValID);
+                    $photo = Photo::find_byID($ValID);
                     if($photo)
                         $photo->delete_with_file();
                     redirect("photos.php");
